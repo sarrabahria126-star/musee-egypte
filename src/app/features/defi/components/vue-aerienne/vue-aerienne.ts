@@ -94,7 +94,10 @@ export class VueAerienne {
 
     return Math.max(
       0,
-      Math.min(100, categorie.points / categorie.maximum * 100)
+      Math.min(
+        100,
+        (categorie.points / categorie.maximum) * 100
+      )
     );
   }
 

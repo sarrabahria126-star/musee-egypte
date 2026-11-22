@@ -8,6 +8,8 @@
   box-sizing: border-box;
 }
 
+/* PAGE */
+
 .vue-page {
   width: 100%;
   min-height: calc(100vh - 90px);
@@ -17,6 +19,8 @@
   font-family: Arial, sans-serif;
 }
 
+/* DISPOSITION GÉNÉRALE */
+
 .vue-layout {
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr);
@@ -25,6 +29,8 @@
   margin: 0 auto;
   align-items: stretch;
 }
+
+/* PARTIE GAUCHE */
 
 .vue-main {
   display: flex;
@@ -49,17 +55,24 @@
   font-size: 12px;
 }
 
+/* IMAGE CORRIGÉE : PLUS PETITE */
+
 .vue-image {
   position: relative;
   display: flex;
+
   width: 100%;
-  flex: 1;
-  min-height: 420px;
+  height: 400px;
+  min-height: 0;
+  flex: none;
+
   align-items: center;
   justify-content: center;
+
   overflow: hidden;
-  border: 1px dashed #c8b693;
-  border-radius: 4px;
+
+  border: 1px solid #d4b98e;
+  border-radius: 8px;
   background: #eee5d3;
 }
 
@@ -67,8 +80,13 @@
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+
+  /* Afficher toute l'image */
+  object-fit: contain;
+  object-position: center;
 }
+
+/* BOUTON RETOUR */
 
 .vue-actions {
   display: flex;
@@ -89,6 +107,10 @@
   cursor: pointer;
 }
 
+.vue-retour:hover {
+  background: #f4ead9;
+}
+
 .site-indication {
   color: #98795b;
   font-size: 12px;
@@ -101,11 +123,15 @@
   min-width: 0;
   min-height: 560px;
   flex-direction: column;
+
   padding: 22px 20px 18px;
+
   border: 1px solid #e1cbaa;
   border-radius: 12px;
   background: #ffffff;
 }
+
+/* CERCLE ET QUALIFICATION */
 
 .score-top {
   display: flex;
@@ -114,8 +140,6 @@
   margin-bottom: 35px;
 }
 
-/* CERCLE DE SCORE */
-
 .score-cercle {
   --score: 0;
 
@@ -123,9 +147,12 @@
   width: 120px;
   height: 120px;
   flex-shrink: 0;
+
   align-items: center;
   justify-content: center;
+
   border-radius: 50%;
+
   background: conic-gradient(
       #f5a02a calc(var(--score) * 1%),
       #e9ddc9 0
@@ -137,8 +164,10 @@
   width: 90px;
   height: 90px;
   flex-direction: column;
+
   align-items: center;
   justify-content: center;
+
   border-radius: 50%;
   background: #ffffff;
 }
@@ -176,13 +205,17 @@
 .qualification-grid span {
   display: flex;
   min-height: 28px;
+
   align-items: center;
   justify-content: center;
+
   padding: 5px 7px;
   border: 2px solid transparent;
   border-radius: 18px;
+
   background: #f0e7d6;
   color: #aa8b6d;
+
   font-size: 11px;
   font-weight: 700;
   text-align: center;
@@ -240,17 +273,24 @@
   transition: width 600ms ease;
 }
 
+/* TOTAL */
+
 .score-total {
   display: flex;
   min-height: 42px;
+
   align-items: center;
   justify-content: space-between;
   gap: 10px;
+
   padding: 10px 13px;
   border-radius: 5px;
+
   background: #f3e7d3;
   font-size: 12px;
 }
+
+/* ESPACE ENTRE SCORE ET BOUTON */
 
 .score-espace {
   flex: 1;
@@ -263,10 +303,13 @@
   width: 100%;
   min-height: 46px;
   padding: 12px 20px;
+
   border: none;
   border-radius: 12px;
+
   background: #f5a02a;
   color: #24190d;
+
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
@@ -275,6 +318,8 @@
 .score-suivant:hover {
   background: #e9931d;
 }
+
+/* PIED DE PAGE */
 
 .vue-footer {
   max-width: 1800px;
@@ -287,13 +332,16 @@
   margin: 0 9px;
 }
 
+/* TABLETTE */
+
 @media (max-width: 1000px) {
   .vue-layout {
     grid-template-columns: 1fr;
   }
 
   .vue-image {
-    min-height: 380px;
+    height: 350px;
+    min-height: 0;
   }
 
   .score-panel {
@@ -301,13 +349,16 @@
   }
 }
 
+/* MOBILE */
+
 @media (max-width: 650px) {
   .vue-page {
     padding: 16px 12px;
   }
 
   .vue-image {
-    min-height: 300px;
+    height: 250px;
+    min-height: 0;
   }
 
   .score-panel {

@@ -63,7 +63,9 @@ export class Villes {
       nom: 'Memphis',
       sousTitre: 'La ville du pouvoir',
       date: 'Vers 3100 av. J.-C.',
-      description: 'Unification et capitale.',
+      description: 'Unification Unification de l’Égypte et\n' +
+        'naissance d’un centre politique\n' +
+        'et administratif stratégique.\n.',
       image: '/images/territoire/Memphis.jpg',
       couleur: 'blue'
     },
@@ -72,7 +74,9 @@ export class Villes {
       nom: 'Thèbes',
       sousTitre: 'La ville des dieux',
       date: '1550–1070 av. J.-C.',
-      description: 'Apogée au Nouvel Empire.',
+      description: 'Apogée politique et religieuse au\n' +
+        'Nouvel Empire : Karnak et la rive\n' +
+        'ouest.\n',
       image: '/images/territoire/Thebes.jpg',
       couleur: 'green'
     },
@@ -81,7 +85,9 @@ export class Villes {
       nom: 'Amarna',
       sousTitre: 'La ville planifiée',
       date: '1346–1332 av. J.-C.',
-      description: 'Capitale d’Akhenaton.',
+      description: 'Capitale fondée par Akhenaton,\n' +
+        'liée à une transformation\n' +
+        'religieuse et politique.',
       image: '/images/territoire/Amarna.jpg',
       couleur: 'orange'
     }

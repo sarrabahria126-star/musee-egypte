@@ -8,21 +8,28 @@
 
     @switch (currentScreen()) {
 
-      <!-- ACCUEIL -->
+      <!-- ================================= -->
+        <!-- ACCUEIL -->
+        <!-- ================================= -->
+
       @case ('accueil') {
 
         <header class="page-heading">
-          <span class="eyebrow">ÉTAPE 2 SUR 5</span>
+          <span class="eyebrow">Étape 2 · Accueil</span>
 
           <h1>
             La naissance et l’évolution des villes
           </h1>
 
           <p class="heading-description">
-            Grâce aux ressources du Nil, les populations
-            se sont progressivement regroupées dans des villes.
-            Certaines deviennent des centres de pouvoir,
-            d'autres des centres religieux ou des capitales planifiées.
+            Comprendre comment le pouvoir royal, les
+            cultes, les activités économiques et le Nil
+            interviennent dans la naissance, le
+            développement et l’organisation des villes
+            étudiées.
+
+            Ces éléments permettront ensuite de comparer
+            Memphis, Thèbes et Amarna.
           </p>
         </header>
 
@@ -45,8 +52,7 @@
               [class.city-card--blue]="ville.id === 'memphis'"
               [class.city-card--green]="ville.id === 'thebes'"
               [class.city-card--orange]="ville.id === 'amarna'"
-              (click)="goTo(ville.id)"
-            >
+              (click)="goTo(ville.id)">
 
               <img
                 [src]="ville.image"
@@ -66,7 +72,10 @@
 
       }
 
-      <!-- 1 : FRISE -->
+      <!-- ================================= -->
+        <!-- ÉCRAN 1 : FRISE CHRONOLOGIQUE -->
+        <!-- ================================= -->
+
       @case ('frise') {
 
         <header class="section-heading">
@@ -84,8 +93,7 @@
               [class.timeline-item--blue]="ville.id === 'memphis'"
               [class.timeline-item--green]="ville.id === 'thebes'"
               [class.timeline-item--orange]="ville.id === 'amarna'"
-              (click)="goTo(ville.id)"
-            >
+              (click)="goTo(ville.id)">
 
               <div class="timeline-dot"></div>
 
@@ -112,11 +120,14 @@
 
       }
 
-      <!-- 2 : MEMPHIS -->
+      <!-- ================================= -->
+        <!-- ÉCRAN 2 : MEMPHIS -->
+        <!-- ================================= -->
+
       @case ('memphis') {
 
         <header class="section-heading heading-blue">
-          <span>Étape 2 · Écran 2 sur 6</span>
+          <span>Étape 2 · Memphis</span>
           <h1>Memphis, la ville du pouvoir</h1>
         </header>
 
@@ -129,18 +140,35 @@
           <div class="detail-cards">
 
             <article class="detail-card detail-card--blue">
-              <h3>Position</h3>
-              <p>Entre la vallée du Nil et le delta.</p>
+              <h3>Position stratégique</h3>
+
+              <p>
+                Elle contrôle le passage vallée–delta et les
+                circulations nord–sud, le plateau voisin offre
+                pierre et nécropoles.
+              </p>
             </article>
 
             <article class="detail-card detail-card--blue">
-              <h3>Fonctions</h3>
-              <p>Pouvoir, administration, commerce.</p>
+              <h3>Contexte</h3>
+
+              <p>
+                Ineb-hedj (« le Mur blanc »), puis Men-nefer.
+                Associée à l’unification vers 3100 av. J.-C. ;
+                fondation attribuée à Ménès, près de Mit
+                Rahina, à l’apex du delta.
+              </p>
             </article>
 
             <article class="detail-card detail-card--blue">
-              <h3>Religion et mort</h3>
-              <p>Temple de Ptah, nécropoles de Saqqarah.</p>
+              <h3>Mots égyptiens</h3>
+
+              <p>
+                Ineb-hedj : le Mur blanc ·
+                Men-nefer : stable et belle ·
+                Ânkhtaouy : la vie des Deux Terres ·
+                Hout-ka-Ptah : origine du mot Égypte
+              </p>
             </article>
 
           </div>
@@ -161,38 +189,86 @@
 
       }
 
-      <!-- 3 : THÈBES -->
+      <!-- ================================= -->
+        <!-- ÉCRAN 3 : THÈBES -->
+        <!-- ================================= -->
+
       @case ('thebes') {
 
         <header class="section-heading heading-green">
-          <span>Étape 2 · Écran 3 sur 6</span>
+          <span>Étape 2 · Thèbes</span>
           <h1>Thèbes, la ville des dieux</h1>
         </header>
 
         <p class="section-intro">
-          Apogée au Nouvel Empire, de 1550 à 1070 av. J.-C.
+          Ouaset, « la ville d’Amon » : apogée au Nouvel Empire
+          (vers 1550–1070 av. J.-C.), après l’expulsion des Hyksos.
         </p>
 
         <div class="detail-layout">
 
           <div class="detail-cards">
 
-            <article class="detail-card detail-card--green">
-              <h3>Rive est</h3>
-              <p>Les vivants : Karnak et Louxor.</p>
-            </article>
+            <!-- RIVE EST -->
 
             <article class="detail-card detail-card--green">
-              <h3>Rive ouest</h3>
-              <p>Les morts : Vallée des Rois.</p>
+              <h3>Rive est : les vivants</h3>
+
+              <p>
+                Ville habitée, temples de Karnak et de Louxor ;
+                le soleil y naît.
+              </p>
             </article>
 
+            <!-- RIVE OUEST -->
+
             <article class="detail-card detail-card--green">
-              <h3>Karnak</h3>
-              <p>Du pylône au sanctuaire, toujours plus sacré.</p>
+              <h3>Rive ouest : les morts</h3>
+
+              <p>
+                Vallée des Rois, Deir el-Bahari, nécropoles ;
+                le soleil s’y couche.
+              </p>
+            </article>
+
+            <!-- KARNAK : PARTIE CORRIGÉE -->
+
+            <article class="detail-card detail-card--green">
+
+              <h3>
+                Karnak : traverser le temple,
+                de plus en plus sacré
+              </h3>
+
+              <div class="karnak-list">
+
+                <div class="karnak-item">
+                  <strong>Pylône</strong>
+                  <span>Entrée monumentale</span>
+                </div>
+
+                <div class="karnak-item">
+                  <strong>Grande cour</strong>
+                  <span>Rassemblements, cérémonies</span>
+                </div>
+
+                <div class="karnak-item">
+                  <strong>Salle hypostyle</strong>
+                  <span>Forêt de colonnes</span>
+                </div>
+
+                <div class="karnak-item">
+                  <strong>Sanctuaire</strong>
+                  <span>Espace le plus sacré</span>
+                </div>
+
+              </div>
+
             </article>
 
           </div>
+
+          <!-- IMAGE DE THÈBES -->
 
           <div class="detail-image detail-image--green">
             <img
@@ -210,16 +286,22 @@
 
       }
 
-      <!-- 4 : AMARNA -->
+      <!-- ================================= -->
+        <!-- ÉCRAN 4 : AMARNA -->
+        <!-- ================================= -->
+
       @case ('amarna') {
 
         <header class="section-heading heading-orange">
-          <span>Étape 2 · Écran 4 sur 6</span>
-          <h1>Amarna, la ville créée par un pharaon</h1>
+          <span>Étape 2 · Amarna</span>
+
+          <h1>
+            Amarna, la ville créée par un pharaon
+          </h1>
         </header>
 
         <p class="section-intro">
-          Capitale fondée vers 1346 av. J.-C. par Akhenaton.
+
         </p>
 
         <div class="detail-layout">
@@ -227,18 +309,23 @@
           <div class="detail-cards">
 
             <article class="detail-card detail-card--orange">
-              <h3>Aton</h3>
-              <p>Culte du disque solaire.</p>
+              <h3>Une capitale créée</h3>
+              <p>Akhet-Aton, « l’Horizon d’Aton », est fondée
+                vers 1346 av. J.-C. par Akhenaton, sur la rive
+                est, pour placer le culte d’Aton, le disque
+                solaire, au centre de la religion royale.</p>
             </article>
 
             <article class="detail-card detail-card--orange">
-              <h3>Plan</h3>
-              <p>Palais, temples, quartiers, artisans.</p>
+              <h3>Mots égyptiens</h3>
+              <p>Akhet-Aton : l’Horizon d’Aton · Iten : le disque solaire · PerAton : la Demeure d’Aton</p>
             </article>
 
             <article class="detail-card detail-card--orange">
-              <h3>Temples ouverts</h3>
-              <p>Cours et autels exposés à la lumière.</p>
+              <h3>Un site choisi
+              </h3>
+              <p>Rupture avec le passé, territoire délimité par
+                des stèles frontières, plaine hors de la crue.</p>
             </article>
 
           </div>
@@ -259,11 +346,14 @@
 
       }
 
-      <!-- 5 : SYNTHÈSE -->
+      <!-- ================================= -->
+        <!-- ÉCRAN 5 : SYNTHÈSE -->
+        <!-- ================================= -->
+
       @case ('synthese') {
 
         <header class="section-heading">
-          <span>Étape 2 · Écran 5 sur 6</span>
+          <span>Étape 2 · Conclusion</span>
           <h1>Trois villes, trois modèles urbains</h1>
         </header>
 
@@ -281,75 +371,111 @@
             </thead>
 
             <tbody>
+
             <tr>
-              <td>Modèle</td>
-              <td>Ville du pouvoir</td>
-              <td>Ville religieuse</td>
-              <td>Ville planifiée</td>
+              <td>Repère principal</td>
+              <td>Résidence royale et centre du pouvoir</td>
+              <td>Ville d’Amon</td>
+              <td>Capitale d’Akhenaton</td>
             </tr>
 
             <tr>
-              <td>Fonction</td>
-              <td>Politique</td>
-              <td>Religieuse</td>
-              <td>Idéologique</td>
+              <td>Développement</td>
+              <td>
+                Associée à l’unification vers 3100 av. J.-C.
+              </td>
+              <td>
+                Apogée au Nouvel Empire,
+                développement sur plusieurs siècles
+              </td>
+              <td>Fondée vers 1346 av. J.-C.</td>
             </tr>
 
             <tr>
-              <td>Notion</td>
-              <td>Centralité</td>
-              <td>Monumentalité</td>
-              <td>Planification</td>
+              <td>Rapport au Nil</td>
+              <td>
+                À la jonction de la vallée et du delta
+              </td>
+              <td>
+                Deux rives aux fonctions distinctes
+              </td>
+              <td>
+                Plaine sur la rive est,
+                avec un quai sur le Nil
+              </td>
+            </tr>
+
+            <tr>
+              <td>Repères religieux et funéraires</td>
+              <td>
+                Temple de Ptah, nécropoles
+                de Saqqarah et de Gizeh
+              </td>
+              <td>
+                Karnak, Louxor, Vallée des Rois
+                et Deir el-Bahari
+              </td>
+              <td>
+                Akhet-Aton, stèles frontières
+                et culte d’Aton
+              </td>
             </tr>
 
             <tr>
               <td>Évolution</td>
-              <td>Plusieurs siècles</td>
+              <td>
+                Ville associée aux premiers temps de l’État
+              </td>
               <td>Apogée au Nouvel Empire</td>
-              <td>Capitale éphémère</td>
+              <td>
+                Capitale éphémère, abandonnée après
+                environ quinze ans
+              </td>
             </tr>
+
             </tbody>
 
           </table>
 
         </div>
 
+        <div class="synthesis-images">
 
-      <div class="synthesis-images">
+          <div class="synthesis-image">
+            <img
+              src="images/territoire/Memphis5.jpg"
+              alt="Memphis"
+              loading="eager"
+              (error)="imageError($event)"
+            />
+          </div>
 
-        <div class="synthesis-image">
-          <img
-            src="images/territoire/Memphis5.jpg"
-            alt="Memphis"
-            loading="eager"
-            (error)="imageError($event)"
-          />
+          <div class="synthesis-image">
+            <img
+              src="images/territoire/Thebes5.jpg"
+              alt="Thèbes"
+              loading="eager"
+              (error)="imageError($event)"
+            />
+          </div>
+
+          <div class="synthesis-image">
+            <img
+              src="images/territoire/Amarna5.jpg"
+              alt="Amarna"
+              loading="eager"
+              (error)="imageError($event)"
+            />
+          </div>
+
         </div>
 
-        <div class="synthesis-image">
-          <img
-            src="images/territoire/Thebes5.jpg"
-            alt="Thèbes"
-            loading="eager"
-            (error)="imageError($event)"
-          />
-        </div>
+      }
 
-        <div class="synthesis-image">
-          <img
-            src="images/territoire/Amarna5.jpg"
-            alt="Amarna"
-            loading="eager"
-            (error)="imageError($event)"
-          />
-        </div>
+      <!-- ================================= -->
+        <!-- ÉCRAN 6 : CONCLUSION -->
+        <!-- ================================= -->
 
-      </div>
-
-
-    }
-
-      <!-- 6 : CONCLUSION -->
       @case ('conclusion') {
 
         <header class="section-heading">
@@ -413,7 +539,9 @@
 
     }
 
+    <!-- ================================= -->
     <!-- NAVIGATION EN BAS -->
+    <!-- ================================= -->
 
     <div class="villes-navigation">
 
@@ -421,8 +549,7 @@
 
         <a
           routerLink="/etape-1"
-          class="btn-secondary"
-        >
+          class="btn-secondary">
           ← Retour à l’étape 1
         </a>
 
@@ -431,8 +558,7 @@
         <button
           type="button"
           class="btn-secondary"
-          (click)="previous()"
-        >
+          (click)="previous()">
           ← Précédent
         </button>
 
@@ -442,8 +568,7 @@
 
         <a
           routerLink="/etape-3"
-          class="btn-primary"
-        >
+          class="btn-primary">
           Découvrir l’étape 3 →
         </a>
 
@@ -452,13 +577,14 @@
         <button
           type="button"
           class="btn-primary"
-          (click)="next()"
-        >
+          (click)="next()">
+
           @if (currentScreen() === 'accueil') {
             Découvrir la frise →
           } @else {
             Suivant →
           }
+
         </button>
 
       }

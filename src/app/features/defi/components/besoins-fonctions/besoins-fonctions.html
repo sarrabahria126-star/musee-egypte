@@ -1,41 +1,47 @@
 
 <section class="besoins-page">
 
+  <!-- TITRE -->
   <header class="besoins-header">
     <h1>Chaque fonction a ses besoins</h1>
-
     <p>
       Les besoins d'une fonction déterminent
       son emplacement dans la ville.
     </p>
   </header>
 
+  <!-- SIX CARTES -->
   <div class="fonctions-grid">
 
     @for (fonction of fonctions; track fonction.id) {
 
       <article class="fonction-card">
 
+        <!-- BANDEAU -->
         <div
           class="fonction-card-header"
-          [style.background]="fonction.couleur">
-
+          [style.background-color]="fonction.couleur">
           <h2>{{ fonction.titre }}</h2>
         </div>
 
+        <!-- CONTENU -->
         <div class="fonction-card-body">
 
+          <!-- GRANDE IMAGE -->
           <div class="fonction-image">
             <img
               [src]="fonction.image"
-              [alt]="fonction.titre"
-              loading="lazy">
+              [alt]="'Illustration de ' + fonction.titre"
+              loading="lazy"
+            />
           </div>
 
+          <!-- DESCRIPTION -->
           <p class="fonction-description">
             {{ fonction.description }}
           </p>
 
+          <!-- BESOINS -->
           <div class="besoins-list">
 
             @for (besoin of fonction.besoins; track besoin.label) {
@@ -57,6 +63,7 @@
 
   </div>
 
+  <!-- BOUTONS -->
   <div class="besoins-actions">
 
     <button
@@ -75,6 +82,7 @@
 
   </div>
 
+  <!-- PIED DE PAGE -->
   <footer class="besoins-footer">
     Étape 5 : devenir urbaniste de l'Égypte antique
     <span>|</span>

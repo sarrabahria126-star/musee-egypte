@@ -1,690 +1,295 @@
 
-/* ============================================
-   HABITATIONS — ÉGYPTE ANTIQUE
-   ============================================ */
-
 :host {
   display: block;
   width: 100%;
 }
 
-$bg: #f6ecda;
-$surface: #fffaf1;
-$surface-light: #fffdf8;
-$text: #332719;
-$brown: #80552e;
-$muted: #92765b;
-$border: #e3d0af;
-$gold: #d69a3a;
-$blue: #285c91;
-$blue-light: #dce8f5;
-
 * {
   box-sizing: border-box;
 }
 
-/* PAGE */
-
-.habitations-page {
-  width: 100%;
-  min-height: calc(100vh - 60px);
-  padding: 42px 32px 80px;
-  background: $bg;
-  color: $text;
-  font-family: "Segoe UI", Arial, sans-serif;
+.habitants-page {
+  min-height: 100vh;
+  padding: 35px 46px 60px;
+  background: #f8edda;
+  color: #2d1c10;
+  font-family: Georgia, serif;
 }
 
-.habitations-container {
-  width: 100%;
-  max-width: 1320px;
-  margin: 0 auto;
+.habitants-header,
+.section-profils,
+.section-societe,
+.section-ressources,
+.section-glossaire,
+.section-quiz,
+.navigation {
+  max-width: 1250px;
+  margin: 0 auto 35px;
 }
 
-/* BOUTON RETOUR */
-
-.back-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-
-  margin: 0 0 30px;
-  padding: 10px 0;
-
-  border: 0;
-  background: transparent;
-
-  color: $brown;
-  font-size: 14px;
-  font-weight: 600;
-
-  cursor: pointer;
-
-  &:hover {
-    color: $blue;
-    text-decoration: underline;
-  }
+.etape,
+.sous-titre {
+  color: #b76420;
+  font: 700 12px Arial, sans-serif;
+  letter-spacing: 1.5px;
 }
 
-/* TITRE */
-
-.page-header {
-  margin-bottom: 38px;
-
-  .eyebrow {
-    display: inline-block;
-    margin-bottom: 14px;
-
-    color: #b2762e;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 1.7px;
-  }
-
-  h1 {
-    max-width: 1000px;
-    margin: 0 0 16px;
-
-    color: $text;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(30px, 3.6vw, 47px);
-    font-weight: 700;
-    line-height: 1.18;
-  }
-
-  p {
-    max-width: 800px;
-    margin: 0;
-
-    color: $brown;
-    font-size: 16px;
-    line-height: 1.8;
-  }
+h1 {
+  margin: 12px 0 18px;
+  font-size: clamp(32px, 4vw, 52px);
 }
 
-/* DISPOSITION PRINCIPALE */
-
-.habitation-exploration {
-  display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
-  align-items: stretch;
-  gap: 24px;
+h2 {
+  margin: 20px 0;
+  font-size: 29px;
 }
 
-.plan-card,
-.information-card {
-  min-width: 0;
-  padding: 28px;
-
-  background: $surface;
-  border: 1px solid $border;
-  border-radius: 14px;
-
-  box-shadow: 0 4px 18px rgba(82, 55, 20, 0.035);
+h3 {
+  font-size: 23px;
 }
 
-/* EN-TÊTE CARTE */
+.introduction {
+  max-width: 950px;
+  color: #795334;
+  font-size: 16px;
+  line-height: 1.8;
+}
 
-.card-heading {
+.carte {
+  padding: 24px;
+  border: 1px solid #e0c39b;
+  border-radius: 12px;
+  background: #fffaf3;
+}
+
+.profils-menu {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-
-  margin-bottom: 26px;
-
-  h2 {
-    margin: 8px 0 0;
-
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 27px;
-    line-height: 1.3;
-  }
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
 }
 
-.small-label {
-  display: block;
-
-  color: #ad732c;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 1.35px;
-  line-height: 1.5;
-}
-
-.city-tag {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-
-  padding: 9px 16px;
-
-  background: #f4e5cb;
-  border: 1px solid $border;
-  border-radius: 30px;
-
-  color: $brown;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-/* ============================================
-   PLAN INTERACTIF DE LA MAISON
-   ============================================ */
-
-.house-plan {
-  width: 100%;
-  max-width: 620px;
-  margin: 0 auto;
-
-  padding: 16px;
-
-  background: #e8e2d7;
-  border: 3px solid #625a50;
-  border-radius: 6px;
-}
-
-.house-zone {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 100%;
-  min-width: 0;
-
-  padding: 16px;
-
-  background: #faf6ee;
-  border: 2px solid #bdb5a8;
-  border-radius: 3px;
-
-  color: #403528;
-  font-family: inherit;
+.profils-menu button {
+  padding: 12px 18px;
+  border: 1px solid #d9b987;
+  border-radius: 25px;
+  background: #fffaf3;
+  color: #332012;
+  font-family: Georgia, serif;
   font-size: 15px;
-  font-weight: 700;
-  line-height: 1.45;
-  text-align: center;
-
   cursor: pointer;
-
-  transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease,
-    box-shadow 0.2s ease;
-
-  &:hover {
-    background: #e7eef8;
-    border-color: $blue;
-  }
-
-  &:focus-visible {
-    outline: 3px solid $gold;
-    outline-offset: 3px;
-  }
-
-  &.active {
-    background: $blue;
-    border-color: #1d4976;
-    color: #ffffff;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
-  }
 }
 
-/* TERRASSE EN HAUT */
-
-.terrasse {
-  min-height: 90px;
-  margin-bottom: 13px;
-
-  background: #f5e6c7;
-  border-style: dashed;
+.profils-menu button.actif,
+.profils-menu button:hover {
+  border-color: #c87d1c;
+  background: #f5a02a;
 }
 
-/* PARTIE INFÉRIEURE */
+.profil-carte h2 {
+  margin: 12px 0;
+  font-size: 31px;
+}
 
-.house-main {
+.role {
+  color: #855936;
+  font-size: 17px;
+}
+
+.journee {
+  padding-left: 25px;
+  line-height: 1.9;
+}
+
+.journee li {
+  margin-bottom: 10px;
+}
+
+.informations {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-  gap: 13px;
-
-  min-height: 310px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 25px;
 }
 
-.pieces {
-  height: 100%;
-  min-height: 310px;
+.information {
+  padding: 16px;
+  border-radius: 9px;
+  background: #f4e8d4;
 }
 
-.house-right {
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  gap: 13px;
-  min-height: 0;
+.information strong {
+  color: #a55b1a;
 }
 
-.cour,
-.stockage {
-  height: 100%;
-  min-height: 0;
-}
-
-.plan-caption {
-  margin: 17px 0 0;
-
-  color: $muted;
-  font-size: 12px;
-  font-style: italic;
+.information p {
+  margin-bottom: 0;
   line-height: 1.6;
 }
 
-/* ============================================
-   FICHE EXPLICATIVE
-   ============================================ */
-
-.information-card {
+.hierarchie {
   display: flex;
   flex-direction: column;
-
-  h2 {
-    margin: 13px 0 28px;
-
-    color: $text;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 34px;
-    line-height: 1.2;
-  }
+  align-items: center;
+  gap: 8px;
+  margin: 24px 0;
 }
 
-.function-section {
-  margin-bottom: 24px;
-}
-
-.section-label {
-  display: block;
-  margin-bottom: 15px;
-
-  color: $blue;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 1.4px;
-}
-
-.function-content {
-  padding: 3px 0 3px 18px;
-  border-left: 4px solid $gold;
-
-  h3 {
-    margin: 0 0 13px;
-
-    color: $text;
-    font-size: 17px;
-    font-weight: 700;
-    line-height: 1.5;
-  }
-
-  p {
-    margin: 0;
-
-    color: #65503b;
-    font-size: 15px;
-    line-height: 1.85;
-  }
-}
-
-/* AIDE BLEUE */
-
-.help-box {
-  padding: 21px 22px;
-  margin-top: 12px;
-
-  background: $blue-light;
-  border: 1px solid #cbdced;
-  border-radius: 9px;
-
-  strong {
-    display: block;
-    margin-bottom: 8px;
-
-    color: $blue;
-    font-size: 14px;
-  }
-
-  p {
-    margin: 0;
-
-    color: #3f5872;
-    font-size: 14px;
-    line-height: 1.7;
-  }
-}
-
-/* VILLE EXPLORÉE */
-
-.selected-city {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-
-  margin-top: auto;
-  padding-top: 25px;
-
-  span {
-    color: #ac7029;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 1.2px;
-  }
-
-  strong {
-    color: $text;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 22px;
-  }
-}
-
-/* ============================================
-   COMPARAISON DES HABITATIONS
-   ============================================ */
-
-.comparison-section {
-  margin-top: 25px;
-  padding: 30px;
-
-  background: $surface;
-  border: 1px solid $border;
-  border-radius: 14px;
-}
-
-.comparison-header {
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 24px;
-
-  margin-bottom: 27px;
-
-  h2 {
-    margin: 9px 0 0;
-
-    color: $text;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 30px;
-    line-height: 1.3;
-  }
-
-  p {
-    margin: 0;
-
-    color: $muted;
-    font-size: 13px;
-    line-height: 1.6;
-  }
-}
-
-.comparison-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
-}
-
-.comparison-card {
-  min-width: 0;
-  padding: 24px;
-
-  background: $surface-light;
-  border: 1px solid $border;
-  border-radius: 10px;
-
-  h3 {
-    margin: 0 0 20px;
-
-    color: $text;
-    font-size: 19px;
-    font-weight: 700;
-  }
-}
-
-/* REPRÉSENTATION DES DEUX MAISONS */
-
-.house-size {
-  margin: 0 0 23px;
-
-  background: #e1eaf4;
-  border: 2px solid $blue;
-  border-radius: 2px;
-}
-
-.small-house {
-  width: 100px;
-  height: 85px;
-}
-
-.large-house {
-  width: 180px;
+.niveau {
   max-width: 100%;
-  height: 125px;
+  min-height: 43px;
+  padding: 10px 15px;
+  border: 1px solid #c9a46f;
+  border-radius: 8px;
+  background: #f1ddba;
+  color: #332012;
+  font-family: Georgia, serif;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
 }
 
-.house-description {
-  p {
-    margin: 0 0 11px;
-
-    color: #5b4835;
-    font-size: 14px;
-    line-height: 1.65;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-
-  strong {
-    color: $text;
-  }
+.niveau:hover,
+.niveau.actif {
+  background: #f5a02a;
+  border-color: #b96d13;
 }
 
-/* QUESTION DE RÉFLEXION */
+.detail-niveau {
+  text-align: center;
+}
 
-.question-card {
+.detail-niveau h3 {
+  margin: 10px 0;
+}
+
+.detail-niveau p:last-child {
+  line-height: 1.7;
+}
+
+.section-ressources .carte {
+  line-height: 1.8;
+}
+
+.glossaire-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.glossaire-carte {
+  padding: 18px;
+}
+
+.glossaire-carte strong {
+  color: #a95c1a;
+  font-size: 19px;
+}
+
+.glossaire-carte p {
+  margin-bottom: 0;
+  font: 13px/1.6 Arial, sans-serif;
+}
+
+.quiz-carte {
+  max-width: 900px;
+}
+
+.choix {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 24px;
-
-  min-width: 0;
-  padding: 30px;
-
-  background: #282725;
-  border-radius: 10px;
-
-  color: white;
-
-  span {
-    color: #e8bb72;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 1.3px;
-  }
-
-  p {
-    margin: 0;
-
-    color: #ffffff;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(19px, 2vw, 25px);
-    line-height: 1.55;
-  }
+  gap: 10px;
+  margin: 20px 0;
 }
 
-/* ============================================
-   NAVIGATION
-   ============================================ */
-
-.bottom-navigation {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 16px;
-
-  margin-top: 30px;
-}
-
-.btn-back,
-.btn-explorer-habitation {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-
-  min-height: 48px;
-  padding: 13px 22px;
-
-  border-radius: 8px;
-
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 700;
-
+.choix button {
+  padding: 15px;
+  border: 1px solid #d8b98d;
+  border-radius: 9px;
+  background: #f5e8d2;
+  color: #302014;
+  text-align: left;
+  font-size: 15px;
   cursor: pointer;
-  transition:
-    background 0.2s ease,
-    transform 0.2s ease;
 }
 
-.btn-back {
-  background: transparent;
-  border: 1px solid #c9ad81;
-  color: $brown;
-
-  &:hover {
-    background: #eee0c8;
-  }
+.choix button:hover {
+  background: #f8dba7;
 }
 
-.btn-explorer-habitation {
-  background: #dca343;
-  border: 1px solid #cb8e2e;
-  color: #302318;
-
-  &:hover {
-    background: #efbb5c;
-    transform: translateY(-2px);
-  }
+.choix button.correct {
+  background: #a9d7ad;
+  border-color: #57965c;
 }
 
-/* ============================================
-   RESPONSIVE TABLETTE
-   ============================================ */
+.choix button.incorrect {
+  background: #edb5a8;
+  border-color: #ba6655;
+}
 
-@media (max-width: 1050px) {
-  .habitation-exploration {
-    grid-template-columns: 1fr;
+.explication {
+  padding: 14px;
+  border-radius: 8px;
+  background: #f4e8d4;
+  line-height: 1.7;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.bouton-principal,
+.bouton-retour {
+  min-height: 44px;
+  padding: 12px 22px;
+  border-radius: 9px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.bouton-principal {
+  border: 1px solid #d38419;
+  background: #f5a02a;
+  color: #281a0d;
+}
+
+.bouton-principal:hover {
+  background: #e8911b;
+}
+
+.bouton-retour {
+  border: 1px solid #d6b78d;
+  background: #fffaf3;
+  color: #302014;
+}
+
+.bouton-retour:hover {
+  background: #f2dfc1;
+}
+
+@media (max-width: 850px) {
+  .habitants-page {
+    padding: 24px 18px;
   }
 
-  .comparison-grid {
+  .glossaire-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-
-  .question-card {
-    grid-column: 1 / -1;
-  }
 }
 
-/* ============================================
-   RESPONSIVE MOBILE
-   ============================================ */
-
-@media (max-width: 650px) {
-  .habitations-page {
-    padding: 25px 15px 55px;
-  }
-
-  .page-header {
-    margin-bottom: 25px;
-
-    h1 {
-      font-size: 30px;
-    }
-
-    p {
-      font-size: 14px;
-    }
-  }
-
-  .plan-card,
-  .information-card,
-  .comparison-section {
-    padding: 17px;
-  }
-
-  .card-heading {
-    align-items: flex-start;
-
-    h2 {
-      font-size: 22px;
-    }
-  }
-
-  .house-plan {
-    padding: 9px;
-  }
-
-  .house-main {
-    gap: 8px;
-    min-height: 235px;
-  }
-
-  .house-right {
-    gap: 8px;
-  }
-
-  .house-zone {
-    padding: 9px 6px;
-    font-size: 12px;
-  }
-
-  .terrasse {
-    min-height: 70px;
-    margin-bottom: 8px;
-  }
-
-  .pieces {
-    min-height: 235px;
-  }
-
-  .information-card h2 {
-    font-size: 28px;
-  }
-
-  .comparison-header {
-    display: block;
-
-    h2 {
-      font-size: 25px;
-    }
-
-    p {
-      margin-top: 12px;
-    }
-  }
-
-  .comparison-grid {
+@media (max-width: 550px) {
+  .informations,
+  .glossaire-grid {
     grid-template-columns: 1fr;
   }
 
-  .question-card {
-    grid-column: auto;
-  }
-
-  .bottom-navigation {
+  .navigation {
     flex-direction: column;
-    align-items: stretch;
   }
 
-  .btn-back,
-  .btn-explorer-habitation {
+  .navigation button {
     width: 100%;
   }
 }

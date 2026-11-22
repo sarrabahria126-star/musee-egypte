@@ -1,280 +1,356 @@
 
-<section class="habitations-page">
+<section class="habitants-page">
 
-  <div class="habitations-container">
+  <!-- TITRE ET INTRODUCTION -->
 
-    <!-- RETOUR -->
-    <button
-      type="button"
-      class="back-link"
-      (click)="retourVueAerienne()"
-    >
-      ← Retour à la vue aérienne de {{ ville }}
-    </button>
+  <header class="habitants-header">
 
-    <!-- TITRE -->
-    <header class="page-header">
+    <p class="etape">
+      ÉTAPE 3 — LA VIE URBAINE
+    </p>
 
-      <span class="eyebrow">
-        ÉTAPE 3 SUR 5 — EXPLORATION URBAINE
-      </span>
+    <h1>Voir la ville à travers ses habitants</h1>
 
-      <h1>
-        Les habitations : comment vivait-on dans la ville ?
-      </h1>
+    <p class="introduction">
+      La ville n’est pas vécue de la même manière par tous.
+      Découvrez le quotidien de différents habitants de
+      l’Égypte antique. Ces profils sont des reconstitutions
+      pédagogiques et non des biographies.
+    </p>
 
-      <p>
-        Découvrez l'organisation d'une habitation de l'Égypte
-        antique en sélectionnant ses différents espaces.
+  </header>
+
+
+  <!-- PARTIE 1 : PROFILS DES HABITANTS -->
+
+  <section class="section-profils">
+
+    <h2>Une journée dans la ville</h2>
+
+    <p class="introduction">
+      Sélectionnez un habitant pour découvrir son quotidien.
+    </p>
+
+    <div class="profils-menu">
+
+      @for (profil of profils; track profil.id; let i = $index) {
+
+        <button
+          type="button"
+          [class.actif]="profilActif() === i"
+          (click)="choisirProfil(i)">
+
+          {{ profil.nom }}
+
+        </button>
+
+      }
+
+    </div>
+
+    <article class="carte profil-carte">
+
+      <p class="sous-titre">
+        UNE JOURNÉE
       </p>
 
-    </header>
+      <h2>{{ profilSelectionne.nom }}</h2>
 
-    <!-- PLAN ET INFORMATIONS -->
-    <div class="habitation-exploration">
+      <p class="role">
+        {{ profilSelectionne.role }}
+      </p>
 
-      <!-- PLAN INTERACTIF -->
-      <div class="plan-card">
+      <ol class="journee">
 
-        <div class="card-heading">
+        @for (activite of profilSelectionne.journee; track $index) {
 
-          <div>
+          <li>
+            {{ activite }}
+          </li>
 
-            <span class="small-label">
-              RECONSTITUTION PÉDAGOGIQUE
-            </span>
+        }
 
-            <h2>Explorer une habitation</h2>
+      </ol>
+
+      <div class="informations">
+
+        @for (info of profilSelectionne.informations; track info.titre) {
+
+          <div class="information">
+
+            <strong>
+              {{ info.titre }}
+            </strong>
+
+            <p>
+              {{ info.texte }}
+            </p>
 
           </div>
 
-          <span class="city-tag">
-            {{ ville }}
-          </span>
+        }
+
+      </div>
+
+    </article>
+
+  </section>
+
+
+  <!-- PARTIE 2 : ORGANISATION DE LA SOCIÉTÉ -->
+
+  <section class="section-societe">
+
+    <h2>
+      L'organisation de la société égyptienne
+    </h2>
+
+    <p class="introduction">
+      Cliquez sur un niveau pour découvrir son rôle.
+      Ce schéma simplifie une société dont les statuts
+      variaient selon les époques.
+    </p>
+
+    <div class="hierarchie">
+
+      @for (niveau of niveaux; track niveau.titre; let i = $index) {
+
+        <button
+          type="button"
+          class="niveau"
+          [class.actif]="niveauActif() === i"
+          [style.width.%]="52 + i * 6.5"
+          (click)="choisirNiveau(i)">
+
+          {{ niveau.titre }}
+
+        </button>
+
+      }
+
+    </div>
+
+    <article class="carte detail-niveau">
+
+      <p class="sous-titre">
+        {{ niveauSelectionne.sousTitre }}
+      </p>
+
+      <h3>
+        {{ niveauSelectionne.titre }}
+      </h3>
+
+      <p>
+        {{ niveauSelectionne.description }}
+      </p>
+
+    </article>
+
+  </section>
+
+
+  <!-- PARTIE 3 : RATIONS, IMPÔTS ET CORVÉES -->
+
+  <section class="section-ressources">
+
+    <h2>Rations, impôts et corvées</h2>
+
+    <div class="carte">
+
+      <p>
+        Dans l'Égypte pharaonique, les échanges et les
+        rémunérations se faisaient notamment en nature :
+        grain, pain, bière, huile et tissus.
+      </p>
+
+      <p>
+        Les scribes enregistraient les récoltes et les impôts.
+        Certains travailleurs recevaient des rations.
+        Les populations pouvaient également être mobilisées
+        pour des travaux collectifs.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- PARTIE 4 : GLOSSAIRE -->
+
+  <section class="section-glossaire">
+
+    <h2>Petit glossaire</h2>
+
+    <p class="introduction">
+      Découvrez quelques mots utilisés dans
+      l'Égypte antique.
+    </p>
+
+    <div class="glossaire-grid">
+
+      @for (mot of glossaire; track mot.mot) {
+
+        <div class="carte glossaire-carte">
+
+          <strong>
+            {{ mot.mot }}
+          </strong>
+
+          <p>
+            {{ mot.definition }}
+          </p>
 
         </div>
 
-        <div class="house-plan">
+      }
 
-          <!-- TERRASSE -->
-          <button
-            type="button"
-            class="house-zone terrasse"
-            [class.active]="estActive('terrasse')"
-            (click)="selectionnerZone('terrasse')"
-          >
-            Terrasse et espaces domestiques
-          </button>
+    </div>
 
-          <div class="house-main">
+  </section>
 
-            <!-- PIÈCES DE VIE -->
+
+  <!-- PARTIE 5 : QUIZ INTERACTIF -->
+
+  <section class="section-quiz">
+
+    <h2>Quiz : avez-vous compris ?</h2>
+
+    <div class="carte quiz-carte">
+
+      @if (questionActive() < questions.length) {
+
+        <p class="sous-titre">
+          QUESTION {{ questionActive() + 1 }}
+          / {{ questions.length }}
+        </p>
+
+        <h3>
+          {{ questions[questionActive()].texte }}
+        </h3>
+
+        <div class="choix">
+
+          @for (
+              choix of questions[questionActive()].choix;
+            track $index;
+            let i = $index
+            ) {
+
             <button
               type="button"
-              class="house-zone pieces"
-              [class.active]="estActive('pieces')"
-              (click)="selectionnerZone('pieces')"
-            >
-              Pièces de vie
+              [class.correct]="
+                reponse() !== null &&
+                i === questions[questionActive()].correcte
+              "
+              [class.incorrect]="
+                reponse() === i &&
+                i !== questions[questionActive()].correcte
+              "
+              [disabled]="reponse() !== null"
+              (click)="choisirReponse(i)">
+
+              {{ choix }}
+
             </button>
 
-            <div class="house-right">
-
-              <!-- COUR -->
-              <button
-                type="button"
-                class="house-zone cour"
-                [class.active]="estActive('cour')"
-                (click)="selectionnerZone('cour')"
-              >
-                Cour intérieure
-              </button>
-
-              <!-- STOCKAGE -->
-              <button
-                type="button"
-                class="house-zone stockage"
-                [class.active]="estActive('stockage')"
-                (click)="selectionnerZone('stockage')"
-              >
-                Espaces de stockage
-              </button>
-
-            </div>
-
-          </div>
+          }
 
         </div>
 
-        <p class="plan-caption">
-          Reconstitution pédagogique d'une maison,
-          non à l'échelle.
-        </p>
+        @if (reponse() !== null) {
 
-      </div>
+          <p class="explication">
 
-      <!-- FICHE D'INFORMATIONS -->
-      <aside class="information-card">
+            @if (
+              reponse() ===
+              questions[questionActive()].correcte
+              ) {
+              <strong>Bonne réponse !</strong>
+            } @else {
+              <strong>Ce n'est pas la bonne réponse.</strong>
+            }
 
-        <span class="small-label">
-          ESPACE SÉLECTIONNÉ
-        </span>
+            {{ questions[questionActive()].explication }}
 
-        <h2>{{ detailActif.titre }}</h2>
-
-        <div class="function-section">
-
-          <span class="section-label">
-            FONCTION URBAINE
-          </span>
-
-          <div class="function-content">
-
-            <h3>{{ detailActif.fonction }}</h3>
-
-            <p>{{ detailActif.description }}</p>
-
-          </div>
-
-        </div>
-
-        <div class="help-box">
-
-          <strong>À vous d'explorer !</strong>
-
-          <p>
-            Touchez les autres parties de la maison
-            pour découvrir leur rôle dans la vie familiale.
           </p>
 
-        </div>
+          <button
+            type="button"
+            class="bouton-principal"
+            (click)="questionSuivante()">
 
-        <div class="selected-city">
+            @if (questionActive() === questions.length - 1) {
+              Voir mon résultat →
+            } @else {
+              Question suivante →
+            }
 
-          <span>VILLE EXPLORÉE</span>
+          </button>
 
-          <strong>{{ ville }}</strong>
+        }
 
-        </div>
+      } @else {
 
-      </aside>
-
-    </div>
-
-    <!-- COMPARAISON -->
-    <section class="comparison-section">
-
-      <div class="comparison-header">
-
-        <div>
-
-          <span class="small-label">
-            COMPRENDRE LES DIFFÉRENCES SOCIALES
-          </span>
-
-          <h2>Comparer deux habitations</h2>
-
-        </div>
+        <h3>Quiz terminé !</h3>
 
         <p>
-          Exemples pédagogiques de dimensions différentes
+          Votre score :
+          <strong>{{ score() }} / {{ questions.length }}</strong>
         </p>
 
-      </div>
+        @if (score() === questions.length) {
 
-      <div class="comparison-grid">
-
-        <!-- MAISON A -->
-        <article class="comparison-card">
-
-          <h3>Maison A</h3>
-
-          <div class="house-size small-house"></div>
-
-          <div class="house-description">
-
-            <p>
-              <strong>Superficie :</strong> réduite
-            </p>
-
-            <p>
-              <strong>Organisation :</strong>
-              peu de pièces, usages combinés
-            </p>
-
-            <p>
-              <strong>Richesse :</strong>
-              moyens modestes
-            </p>
-
-          </div>
-
-        </article>
-
-        <!-- MAISON B -->
-        <article class="comparison-card">
-
-          <h3>Maison B</h3>
-
-          <div class="house-size large-house"></div>
-
-          <div class="house-description">
-
-            <p>
-              <strong>Superficie :</strong> étendue
-            </p>
-
-            <p>
-              <strong>Organisation :</strong>
-              pièces plus nombreuses, fonctions séparées
-            </p>
-
-            <p>
-              <strong>Richesse :</strong>
-              moyens plus importants
-            </p>
-
-          </div>
-
-        </article>
-
-        <!-- QUESTION -->
-        <article class="question-card">
-
-          <span>QUESTION DE RÉFLEXION</span>
-
-          <p>
-            « Est-ce que tous les habitants de la ville
-            vivaient dans les mêmes conditions ? »
+          <p class="explication">
+            Excellent ! Vous avez répondu correctement
+            à toutes les questions.
           </p>
 
-        </article>
+        } @else {
 
-      </div>
+          <p class="explication">
+            Vous pouvez recommencer le quiz pour
+            améliorer votre score.
+          </p>
 
-    </section>
+        }
 
-    <!-- NAVIGATION -->
-    <div class="bottom-navigation">
+        <button
+          type="button"
+          class="bouton-principal"
+          (click)="recommencerQuiz()">
 
-      <button
-        type="button"
-        class="btn-back"
-        (click)="retourVueAerienne()"
-      >
-        ← Retour à la vue aérienne
-      </button>
+          Recommencer le quiz
 
-      <button
-        type="button"
-        class="btn-explorer-habitation"
-        (click)="ouvrirHabitants()"
-      >
-        Voir la ville à travers ses habitants
-        <span aria-hidden="true">→</span>
-      </button>
+        </button>
+
+      }
 
     </div>
+
+  </section>
+
+
+  <!-- PARTIE 6 : NAVIGATION -->
+
+  <div class="navigation">
+
+    <button
+      type="button"
+      class="bouton-retour"
+      (click)="retour.emit()">
+
+      ← Retour à la vue aérienne
+
+    </button>
+
+    <button
+      type="button"
+      class="bouton-principal"
+      (click)="suivant.emit()">
+
+      Découvrir les villes →
+
+    </button>
 
   </div>
 

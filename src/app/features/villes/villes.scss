@@ -15,6 +15,10 @@ $orange: #ca840d;
 
 $border: #e4d1b5;
 
+/* ===================================== */
+/* STYLE GÉNÉRAL */
+/* ===================================== */
+
 :host {
   display: block;
 }
@@ -39,7 +43,9 @@ $border: #e4d1b5;
   margin: 0 auto;
 }
 
-/* DÉCORATIONS ÉGYPTIENNES */
+/* ===================================== */
+/* DÉCORATIONS */
+/* ===================================== */
 
 .egypt-decoration {
   position: absolute;
@@ -59,7 +65,9 @@ $border: #e4d1b5;
   left: 15px;
 }
 
+/* ===================================== */
 /* TITRES */
+/* ===================================== */
 
 .eyebrow {
   display: inline-block;
@@ -89,7 +97,9 @@ $border: #e4d1b5;
   max-width: 1100px;
 }
 
+/* ===================================== */
 /* INTRODUCTION */
+/* ===================================== */
 
 .intro-banner {
   background: $surface;
@@ -112,7 +122,9 @@ $border: #e4d1b5;
   }
 }
 
+/* ===================================== */
 /* CARTES DES TROIS VILLES */
+/* ===================================== */
 
 .cities-grid {
   display: grid;
@@ -193,7 +205,9 @@ $border: #e4d1b5;
   }
 }
 
+/* ===================================== */
 /* TITRES DES ÉCRANS */
+/* ===================================== */
 
 .section-heading {
   padding-left: 25px;
@@ -231,7 +245,9 @@ $border: #e4d1b5;
   margin: 0 0 28px;
 }
 
+/* ===================================== */
 /* FRISE CHRONOLOGIQUE */
+/* ===================================== */
 
 .timeline {
   display: grid;
@@ -358,32 +374,42 @@ $border: #e4d1b5;
   color: $text-muted;
 }
 
+/* ===================================== */
 /* DÉTAILS DES VILLES */
+/* ===================================== */
 
 .detail-layout {
   display: grid;
   grid-template-columns: minmax(0, 1.5fr) minmax(280px, 1fr);
   gap: 25px;
-  align-items: stretch;
+  align-items: start;
 }
 
 .detail-cards {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  min-width: 0;
 }
 
+/* CORRECTION IMPORTANTE :
+   Chaque carte garde sa hauteur naturelle.
+   Son contenu ne peut plus déborder. */
+
 .detail-card {
-  flex: 1;
-  background: $white;
+  flex: 0 0 auto;
+  min-width: 0;
+  min-height: 130px;
+  height: auto;
   padding: 22px 25px;
+  background: $white;
   border-radius: 12px;
   border-left: 7px solid $primary;
-  min-height: 130px;
 
   h3 {
     margin: 0 0 10px;
     font-size: 23px;
+    line-height: 1.3;
   }
 
   p {
@@ -406,7 +432,49 @@ $border: #e4d1b5;
   border-color: $orange;
 }
 
+/* ===================================== */
+/* KARNAK : CORRECTION DU DÉBORDEMENT */
+/* ===================================== */
+
+.karnak-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 12px;
+  margin-top: 15px;
+  width: 100%;
+}
+
+.karnak-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border-left: 3px solid $green;
+  background: #f2f8f1;
+
+  strong {
+    display: block;
+    font-size: 16px;
+    line-height: 1.3;
+    color: #206c4a;
+  }
+
+  span {
+    display: block;
+    font-size: 15px;
+    line-height: 1.4;
+    color: $text-muted;
+  }
+}
+
+/* ===================================== */
+/* IMAGES DES VILLES */
+/* ===================================== */
+
 .detail-image {
+  width: 100%;
   min-height: 430px;
   border: 3px dashed $primary;
   border-radius: 12px;
@@ -434,9 +502,13 @@ $border: #e4d1b5;
   border-color: $orange;
 }
 
+/* ===================================== */
 /* NOTIONS */
+/* ===================================== */
 
 .notion {
+  clear: both;
+  position: relative;
   margin-top: 22px;
   padding: 20px 25px;
   border-radius: 12px;
@@ -461,7 +533,9 @@ $border: #e4d1b5;
   background: #fff0d2;
 }
 
+/* ===================================== */
 /* TABLEAU DE SYNTHÈSE */
+/* ===================================== */
 
 .comparison-table-wrapper {
   overflow-x: auto;
@@ -509,6 +583,10 @@ $border: #e4d1b5;
   color: $orange;
 }
 
+/* ===================================== */
+/* IMAGES DE SYNTHÈSE */
+/* ===================================== */
+
 .synthesis-images {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -522,21 +600,23 @@ $border: #e4d1b5;
     border-radius: 12px;
     border: 2px dashed $primary;
   }
-
-  img:nth-child(1) {
-    border-color: $blue;
-  }
-
-  img:nth-child(2) {
-    border-color: $green;
-  }
-
-  img:nth-child(3) {
-    border-color: $orange;
-  }
 }
 
+.synthesis-image:nth-child(1) img {
+  border-color: $blue;
+}
+
+.synthesis-image:nth-child(2) img {
+  border-color: $green;
+}
+
+.synthesis-image:nth-child(3) img {
+  border-color: $orange;
+}
+
+/* ===================================== */
 /* CONCLUSION */
+/* ===================================== */
 
 .conclusion-banner {
   background: $white;
@@ -601,7 +681,9 @@ $border: #e4d1b5;
   }
 }
 
+/* ===================================== */
 /* NAVIGATION */
+/* ===================================== */
 
 .villes-navigation {
   display: flex;
@@ -650,10 +732,11 @@ $border: #e4d1b5;
   }
 }
 
-/* RESPONSIVE */
+/* ===================================== */
+/* RESPONSIVE TABLETTE */
+/* ===================================== */
 
 @media (max-width: 1000px) {
-
   .cities-grid,
   .timeline,
   .synthesis-images,
@@ -668,12 +751,14 @@ $border: #e4d1b5;
   .detail-image,
   .detail-image img {
     min-height: 350px;
-    max-height: 500px;
   }
 }
 
-@media (max-width: 650px) {
+/* ===================================== */
+/* RESPONSIVE MOBILE */
+/* ===================================== */
 
+@media (max-width: 650px) {
   .villes-page {
     padding: 35px 18px 60px;
   }
@@ -699,6 +784,20 @@ $border: #e4d1b5;
 
   .detail-card {
     min-height: 110px;
+    padding: 18px;
+  }
+
+  .detail-card h3 {
+    font-size: 20px;
+  }
+
+  .karnak-list {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .karnak-item {
+    padding: 9px 11px;
   }
 
   .comparison-table {

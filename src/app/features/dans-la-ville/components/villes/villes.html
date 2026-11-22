@@ -1,0 +1,243 @@
+
+<section class="villes-page">
+
+  <h1>Une même interface, trois villes</h1>
+
+  <p class="lead">
+    La reconstitution n’est pas une ville égyptienne universelle :
+    les organisations varient selon les périodes et les sites.
+    Choisissez une ville pour voir comment les cinq espaces s’y manifestent.
+  </p>
+
+  <!-- CHOISIR LA VILLE -->
+
+  <div class="choix-villes">
+    @for (v of villes; track v.id) {
+      <button
+        type="button"
+        class="chip"
+        [class.active]="villeActive() === v.id"
+        (click)="choisirVille(v.id)">
+        {{ v.nom }}
+      </button>
+    }
+  </div>
+
+  <h2 class="nom-ville">
+    {{ ville.nom }}
+    <small>{{ ville.ancien }}</small>
+  </h2>
+
+  <p class="lead description">
+    {{ ville.description }}
+  </p>
+
+  <!-- BOUTONS POUR COLORER LES ESPACES -->
+
+  <div class="carte choix-zones">
+
+    <p class="sur-titre">
+      TOUCHEZ UN MOT POUR COLORER L’ESPACE SUR LE PLAN ET LE SCHÉMA
+    </p>
+
+    <div class="boutons-zones">
+
+      @for (cat of categories; track cat.id) {
+        <button
+          type="button"
+          class="chip"
+          [class.coloree]="estActive(cat.id)"
+          [style.--zone-color]="cat.couleur"
+          (click)="basculer(cat.id)">
+          {{ cat.nom }}
+        </button>
+      }
+
+      <button
+        type="button"
+        class="chip"
+        (click)="toutColorer()">
+        {{ zonesActives().length === 5 ? 'Tout masquer' : 'Tout colorer' }}
+      </button>
+
+    </div>
+  </div>
+
+  <!-- LES DEUX PLANS CÔTE À CÔTE -->
+
+  <div class="deux-plans">
+
+    <!-- PLAN ARCHÉOLOGIQUE -->
+
+    <div class="carte">
+
+      <p class="sur-titre">PLAN ARCHÉOLOGIQUE</p>
+
+      <div class="plan-arch">
+
+        <img
+          [src]="ville.image"
+          [alt]="'Plan archéologique de ' + ville.nom">
+
+        @for (r of regionsVisibles; track $index) {
+          <div
+            class="region"
+            [style.left.%]="r.x"
+            [style.top.%]="r.y"
+            [style.width.%]="r.w"
+            [style.height.%]="r.h"
+            [style.backgroundColor]="couleur(r.zone)">
+            {{ r.label }}
+          </div>
+        }
+
+      </div>
+
+      <p class="legende">
+        {{ ville.legende }}
+        Zones colorées : positions approximatives.
+      </p>
+
+      @if (zonesAbsentes.length > 0) {
+        <p class="note">
+          Non visible sur ce plan :
+          {{ zonesAbsentes.join(', ') }}.
+          Voir les fiches ci-dessous.
+        </p>
+      }
+
+    </div>
+
+    <!-- SCHÉMA D'ENSEMBLE -->
+
+    <div class="carte">
+
+      <p class="sur-titre">SCHÉMA D’ENSEMBLE</p>
+
+      <svg
+        class="schema"
+        viewBox="0 0 400 240"
+        role="img"
+        [attr.aria-label]="'Schéma pédagogique de ' + ville.nom">
+
+        @for (r of schemasVille; track $index) {
+
+          <rect
+            [attr.x]="r.x"
+            [attr.y]="r.y"
+            [attr.width]="r.w"
+            [attr.height]="r.h"
+            rx="4"
+            [attr.fill]="estActive(r.zone) ? couleur(r.zone) : '#bbb7ab'"
+            [attr.fill-opacity]="estActive(r.zone) ? 0.95 : 0.4"
+            stroke="#202427"
+            [attr.stroke-width]="estActive(r.zone) ? 2.2 : 0.7">
+          </rect>
+
+          <text
+            [attr.x]="r.x + 6"
+            [attr.y]="r.y + 15">
+            {{ r.label }}
+          </text>
+
+        }
+
+      </svg>
+
+      @if (zonesActives().length > 0) {
+
+        <div class="selection">
+          <span>Coloré :</span>
+
+          @for (cat of categories; track cat.id) {
+            @if (estActive(cat.id)) {
+              <span [style.backgroundColor]="cat.couleur">
+                {{ cat.nom }}
+              </span>
+            }
+          }
+        </div>
+
+      }
+
+      <p class="legende">
+        Schéma pédagogique, non à l’échelle.
+      </p>
+
+      <p class="sur-titre reperes-titre">REPÈRES</p>
+
+      @for (repere of ville.reperes; track repere.titre) {
+        <p class="repere">
+          <b>{{ repere.titre }}</b>
+          · {{ repere.texte }}
+        </p>
+      }
+
+    </div>
+
+  </div>
+
+  <!-- LES CINQ FICHES -->
+
+  <h2>Les cinq espaces</h2>
+
+  <div class="fiches">
+
+    @for (fiche of ville.fiches; track fiche.zone) {
+
+      <button
+        type="button"
+        class="carte fiche"
+        [class.fiche-active]="estActive(fiche.zone)"
+        [style.border-left-color]="couleur(fiche.zone)"
+        (click)="basculer(fiche.zone)">
+
+        <span class="statut">
+          {{ fiche.statut }}
+        </span>
+
+        <strong>{{ fiche.nom }}</strong>
+
+        <p>{{ fiche.texte }}</p>
+
+      </button>
+
+    }
+
+  </div>
+
+  <!-- CE QU'ON RETIENT -->
+
+  <div class="lecon">
+    <strong>Ce que la ville nous apprend</strong>
+    <p>{{ ville.lecon }}</p>
+  </div>
+
+  <div class="carte">
+    <strong>Attesté ou reconstitué ?</strong>
+    Quand la forme exacte d’un espace est incertaine,
+    la fiche distingue ce que les fouilles ont montré
+    de ce qui relève d’une reconstitution.
+  </div>
+
+  <!-- NAVIGATION -->
+
+  <div class="navigation">
+
+    <button
+      type="button"
+      class="chip"
+      (click)="retour.emit()">
+      ← Retour aux habitants
+    </button>
+
+    <button
+      type="button"
+      class="chip active"
+      (click)="suivant.emit()">
+      Passer à la conclusion →
+    </button>
+
+  </div>
+
+</section>

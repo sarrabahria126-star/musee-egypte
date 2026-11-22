@@ -1,660 +1,521 @@
 
 :host {
   display: block;
-  min-height: 100vh;
+  width: 100%;
 }
 
 * {
   box-sizing: border-box;
 }
 
-.exploration-page {
+.ville-page {
   min-height: 100vh;
-  background: #f7ecd9;
-  color: #30251b;
-  padding: 55px 30px 90px;
+  background: #f8edda;
+  color: #332318;
+  font-family: Georgia, "Times New Roman", serif;
 }
 
-.exploration-container {
-  max-width: 1720px;
+.conteneur {
+  width: min(1350px, 100%);
   margin: 0 auto;
 }
 
-/* EN-TÊTE */
+/* NAVIGATION */
 
-.page-heading {
-  margin-bottom: 40px;
-
-  .eyebrow {
-    display: block;
-    color: #a55c2b;
-    font-size: 15px;
-    font-weight: 800;
-    letter-spacing: 2px;
-    margin-bottom: 15px;
-  }
-
-  h1 {
-    font-family: Georgia, serif;
-    font-size: clamp(42px, 5vw, 76px);
-    line-height: 1.08;
-    margin: 0 0 20px;
-    color: #30251b;
-  }
-
-  p {
-    color: #745943;
-    font-size: 21px;
-    line-height: 1.7;
-    max-width: 950px;
-    margin: 0;
-  }
-}
-
-/* SÉLECTEUR DES VILLES */
-
-.city-selector {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 25px;
-  padding: 25px 30px;
-  background: #fffaf2;
-  border: 1px solid #e6d2b4;
-  border-radius: 16px;
-  margin-bottom: 25px;
-}
-
-.city-selector-heading {
-  span {
-    display: block;
-    font-size: 13px;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    color: #b8752e;
-    margin-bottom: 7px;
-  }
-
-  h2 {
-    font-family: Georgia, serif;
-    font-size: 30px;
-    margin: 0 0 7px;
-  }
-
-  p {
-    color: #80684f;
-    font-size: 16px;
-    margin: 0;
-  }
-}
-
-.city-selector-buttons {
+.ville-navigation {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 10px;
+  padding: 20px 6%;
+  background: #fff7e9;
+  border-bottom: 1px solid #e5d0ad;
 
   button {
-    background: #f5e6cf;
-    border: 1px solid #dfc7a7;
-    color: #4a3522;
-    border-radius: 9px;
-    padding: 14px 25px;
-    font-size: 16px;
-    font-weight: 700;
+    padding: 12px 21px;
+    border: 1px solid transparent;
+    border-radius: 25px;
+    background: transparent;
+    color: #5b412c;
+    font-size: 15px;
+    font-weight: bold;
     cursor: pointer;
-    transition: 0.2s ease;
+    transition: 0.2s;
 
     &:hover {
-      background: #ead2aa;
-      transform: translateY(-2px);
+      background: #f5dfba;
     }
 
-    &.active {
-      background: #245b91;
-      border-color: #245b91;
-      color: white;
+    &.actif {
+      background: #f5a12b;
+      color: #332318;
     }
   }
 }
 
-.city-introduction {
-  font-size: 19px;
-  line-height: 1.7;
-  color: #5f4834;
-  margin: 0 0 12px;
+/* ÉLÉMENTS COMMUNS */
+
+.etape-label {
+  margin: 0 0 18px;
+  color: #b76a1f;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 2.5px;
 }
 
-.exploration-instruction {
-  font-size: 17px;
-  color: #896c50;
-  margin: 0 0 30px;
-}
-
-/* TROIS COLONNES */
-
-.exploration-layout {
-  display: grid;
-  grid-template-columns:
-    minmax(220px, 0.9fr)
-    minmax(400px, 2.2fr)
-    minmax(280px, 1.1fr);
-  align-items: start;
-  gap: 25px;
-}
-
-/* ESPACES À GAUCHE */
-
-.spaces-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.space-button {
-  width: 100%;
-  text-align: left;
-  border: 1px solid #e3cfb1;
-  background: #fffaf3;
-  border-radius: 12px;
-  padding: 23px 20px;
+.bouton-principal,
+.bouton-retour {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 13px 25px;
+  border-radius: 28px;
+  font-size: 15px;
+  font-weight: bold;
   cursor: pointer;
-  color: #30251b;
-  transition: 0.2s ease;
+  transition: 0.2s;
+}
 
-  strong {
-    display: block;
-    font-size: 19px;
-    margin-bottom: 10px;
-  }
-
-  span {
-    display: block;
-    font-size: 15px;
-    line-height: 1.5;
-    color: #85654a;
-  }
+.bouton-principal {
+  border: 1px solid #ec9c20;
+  background: #f5a12b;
+  color: #332318;
 
   &:hover {
-    border-color: #c99042;
-    transform: translateX(4px);
-    box-shadow: 0 5px 18px rgba(91, 63, 27, 0.08);
-  }
-
-  &.active {
-    background: #245b91;
-    border-color: #245b91;
-    color: #fff;
-
-    span {
-      color: #e7eff8;
-    }
+    background: #e99216;
+    transform: translateY(-2px);
   }
 }
 
-/* PLAN CENTRAL */
+.bouton-retour {
+  border: 1px solid #d8bb90;
+  background: #fff8ec;
+  color: #493522;
 
-.map-panel {
-  background: #fffaf3;
-  border: 1px solid #e3cfb1;
-  border-radius: 16px;
-  padding: 24px;
-  min-width: 0;
+  &:hover {
+    background: #f4dfbc;
+  }
 }
 
-.map-panel-heading {
-  margin-bottom: 20px;
+.explorer-actions {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 36px;
+}
 
-  span {
-    display: block;
-    font-size: 12px;
-    letter-spacing: 2px;
-    font-weight: 800;
-    color: #b77532;
+/* ACCUEIL */
+
+.entree-ville {
+  min-height: 85vh;
+  padding: 65px 7% 90px;
+
+  h1 {
+    margin: 0 0 25px;
+    font-size: clamp(44px, 5vw, 75px);
+    line-height: 1.1;
+  }
+}
+
+.entree-description {
+  max-width: 850px;
+  color: #66503b;
+  font-size: 20px;
+  line-height: 1.8;
+}
+
+.entree-citation {
+  max-width: 950px;
+  margin: 30px 0;
+  padding: 25px 30px;
+  border-left: 5px solid #efa02c;
+  border-radius: 0 14px 14px 0;
+  background: #fff8ed;
+  color: #634b35;
+  font-size: 17px;
+  font-style: italic;
+  line-height: 1.8;
+}
+
+.titre-section {
+  margin: 60px 0 25px;
+  font-size: 30px;
+}
+
+.entree-cartes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.entree-carte {
+  display: block;
+  width: 100%;
+  min-height: 170px;
+  padding: 25px;
+  text-align: left;
+  border: 1px solid #e6cfaa;
+  border-radius: 17px;
+  background: #fff8ed;
+  color: #332318;
+  cursor: pointer;
+  box-shadow: 0 5px 18px rgba(80, 50, 20, 0.05);
+  transition: 0.2s;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(80, 50, 20, 0.12);
   }
 
   h3 {
-    font-family: Georgia, serif;
-    font-size: 26px;
-    margin: 8px 0 0;
-  }
-}
-
-/* PLAN SCHÉMATIQUE */
-
-.city-map {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1.35;
-  min-height: 380px;
-  background: #e8e3d9;
-  border: 3px solid #383d40;
-  border-radius: 7px;
-  overflow: hidden;
-}
-
-/* ZONES */
-
-.map-zone,
-.map-road {
-  position: absolute;
-  font-family: inherit;
-  text-align: left;
-  cursor: pointer;
-  transition:
-    background 0.2s ease,
-    box-shadow 0.2s ease,
-    transform 0.2s ease;
-}
-
-.map-zone {
-  border: 2px solid #4d5558;
-  border-radius: 6px;
-  padding: 15px;
-  color: #272727;
-  z-index: 2;
-
-  strong {
-    display: block;
-    font-size: clamp(12px, 1.1vw, 17px);
-    line-height: 1.35;
-  }
-
-  > span {
-    display: block;
-    font-size: 13px;
-    margin-top: 7px;
-  }
-
-  &:hover {
-    filter: brightness(1.04);
-    box-shadow: inset 0 0 0 2px #245b91;
-  }
-
-  &.selected {
-    outline: 4px solid #245b91;
-    outline-offset: -4px;
-    box-shadow: 0 0 0 2px rgba(36, 91, 145, 0.15);
-  }
-}
-
-/* TEMPLE */
-
-.zone-temple {
-  top: 5%;
-  left: 4%;
-  width: 36%;
-  height: 29%;
-  background: #f8e7b6;
-}
-
-/* PALAIS */
-
-.zone-palace {
-  top: 5%;
-  right: 4%;
-  width: 29%;
-  height: 29%;
-  background: #ead9c6;
-}
-
-/* HABITATIONS */
-
-.zone-habitat {
-  bottom: 5%;
-  left: 4%;
-  width: 58%;
-  height: 46%;
-  background: #dbe6f4;
-}
-
-.houses {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  grid-template-rows: repeat(2, 1fr);
-  gap: 5px;
-  height: 70%;
-  margin-top: 12px;
-}
-
-.house {
-  display: block;
-  min-width: 0;
-  background: #fffaf2;
-  border: 1px solid #9cb5d0;
-}
-
-/* ADMINISTRATION */
-
-.zone-admin {
-  right: 4%;
-  top: 45%;
-  width: 29%;
-  height: 22%;
-  background: #dfe7da;
-}
-
-/* ATELIERS */
-
-.zone-workshops {
-  right: 4%;
-  bottom: 5%;
-  width: 29%;
-  height: 20%;
-  background: #e0ded6;
-  display: flex;
-  align-items: center;
-}
-
-/* RUES */
-
-.map-road {
-  background: #33393d;
-  border: 0;
-  color: white;
-  z-index: 1;
-
-  &:hover,
-  &.selected {
-    background: #245b91;
-  }
-}
-
-.road-horizontal {
-  top: 37%;
-  left: 0;
-  width: 100%;
-  height: 5%;
-  padding: 0 12px;
-  font-size: 12px;
-}
-
-.road-vertical {
-  top: 0;
-  left: 65%;
-  width: 3%;
-  height: 100%;
-  padding: 0;
-}
-
-/* VARIATIONS DES PLANS */
-
-/* Memphis : zones politiques plus importantes */
-
-.map-memphis {
-  .zone-palace {
-    width: 32%;
-    height: 32%;
-  }
-
-  .zone-temple {
-    width: 35%;
-  }
-
-  .zone-habitat {
-    width: 56%;
-  }
-}
-
-/* Thèbes : espace religieux plus important */
-
-.map-thebes {
-  .zone-temple {
-    width: 43%;
-    height: 32%;
-  }
-
-  .zone-palace {
-    width: 24%;
-  }
-
-  .zone-habitat {
-    width: 57%;
-  }
-}
-
-/* Amarna : axe principal et organisation planifiée */
-
-.map-amarna {
-  .zone-temple {
-    width: 37%;
-  }
-
-  .zone-palace {
-    width: 30%;
-  }
-
-  .road-vertical {
-    left: 64%;
-    width: 4%;
-  }
-}
-
-/* LÉGENDE */
-
-.map-caption {
-  margin: 15px 0;
-  color: #8c7358;
-  font-size: 13px;
-  font-style: italic;
-}
-
-.map-legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px 18px;
-  margin-top: 18px;
-
-  span {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    font-size: 13px;
-    color: #5f5141;
-  }
-
-  i {
-    width: 13px;
-    height: 13px;
-    border: 1px solid #9e917f;
-    border-radius: 3px;
-  }
-
-  .legend-habitat {
-    background: #dbe6f4;
-  }
-
-  .legend-temple {
-    background: #f8e7b6;
-  }
-
-  .legend-palace {
-    background: #ead9c6;
-  }
-
-  .legend-admin {
-    background: #dfe7da;
-  }
-}
-
-/* INFORMATIONS À DROITE */
-
-.information-panel {
-  background: #fffaf3;
-  border: 1px solid #e3cfb1;
-  border-radius: 16px;
-  padding: 30px 25px;
-  min-width: 0;
-}
-
-.information-badge {
-  display: inline-block;
-  background: #eee5d6;
-  border-radius: 30px;
-  padding: 9px 13px;
-  font-size: 12px;
-  color: #4f4032;
-  margin-bottom: 25px;
-}
-
-.information-panel h2 {
-  font-family: Georgia, serif;
-  font-size: clamp(26px, 2vw, 35px);
-  margin: 0 0 28px;
-  line-height: 1.2;
-}
-
-.information-category,
-.discover-heading {
-  font-size: 13px;
-  font-weight: 800;
-  color: #245b91;
-  letter-spacing: 1.5px;
-  margin-bottom: 17px;
-}
-
-.information-description {
-  border-left: 5px solid #d48b2a;
-  padding: 5px 0 5px 17px;
-  margin-bottom: 32px;
-
-  strong {
-    display: block;
-    font-size: 17px;
-    margin-bottom: 10px;
+    margin: 12px 0;
+    color: #82501e;
+    font-size: 21px;
   }
 
   p {
-    font-size: 16px;
-    line-height: 1.8;
     margin: 0;
-    color: #584431;
-  }
-}
-
-.discover-list {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-
-  li {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 18px;
+    color: #6b5642;
     font-size: 15px;
-    line-height: 1.5;
+    line-height: 1.6;
   }
 }
 
-.discover-number {
-  flex-shrink: 0;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: #245b91;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 700;
+.carte-pastille {
+  display: block;
+  width: 24px;
+  height: 7px;
+  border-radius: 10px;
+}
+
+.carte-lien {
+  display: inline-block;
+  margin-top: 18px;
+  color: #a7681e;
   font-size: 14px;
+  font-weight: bold;
 }
 
-.information-footer {
-  border-top: 1px solid #e7d7c2;
-  padding-top: 22px;
-  margin-top: 30px;
+/* VUE AÉRIENNE */
 
-  span {
-    display: block;
-    color: #b17b3c;
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 1.4px;
-    margin-bottom: 8px;
+.explorer-page {
+  min-height: 85vh;
+  padding: 55px 6% 85px;
+}
+
+.explorer-header {
+  margin-bottom: 32px;
+
+  h1 {
+    margin: 0 0 15px;
+    font-size: clamp(38px, 4vw, 60px);
+    line-height: 1.15;
   }
+
+  > p:last-child {
+    max-width: 850px;
+    color: #66503b;
+    font-size: 18px;
+    line-height: 1.8;
+  }
+}
+
+.exploration-interactive {
+  display: grid;
+  grid-template-columns: 265px minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+}
+
+/* BOUTONS DES CINQ ESPACES */
+
+.espaces-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.espace-bouton {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  padding: 18px;
+  text-align: left;
+  border: 2px solid #e3cda8;
+  border-radius: 12px;
+  background: #fff8ed;
+  color: #49301e;
+  cursor: pointer;
+  transition: 0.2s;
 
   strong {
     font-family: Georgia, serif;
-    font-size: 23px;
+    font-size: 17px;
+  }
+
+  span {
+    color: #715a42;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  &:hover {
+    border-color: var(--couleur-espace);
+    background: #f7e3bf;
+    transform: translateX(3px);
+  }
+
+  &.selectionne {
+    border-color: var(--couleur-espace);
+    background: #fff0d4;
+    box-shadow: inset 6px 0 var(--couleur-espace);
   }
 }
 
-/* RESPONSIVE */
+/* PLAN ARCHÉOLOGIQUE */
 
-@media (max-width: 1200px) {
-  .exploration-layout {
-    grid-template-columns: 240px minmax(0, 1fr);
-  }
+.plan-interactif {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid #e4ceaa;
+  border-radius: 18px;
+  background: #fff8ed;
+}
 
-  .information-panel {
-    grid-column: 1 / -1;
+.plan-conteneur {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #e5d8c4;
+  border-radius: 12px;
+  background: #ffffff;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
   }
 }
 
-@media (max-width: 800px) {
-  .exploration-page {
-    padding: 35px 18px 60px;
+.plan-calques {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* FICHE SOUS LE PLAN */
+
+.fiche-espace {
+  display: flex;
+  gap: 17px;
+  align-items: flex-start;
+  margin-top: 20px;
+  padding: 24px;
+  border: 1px solid #eed6ae;
+  border-radius: 14px;
+  background: #fff0d5;
+
+  h2 {
+    margin: 0 0 12px;
+    color: #57361d;
+    font-size: 26px;
   }
 
-  .exploration-layout {
+  p {
+    margin: 0;
+    color: #654c36;
+    font-size: 16px;
+    line-height: 1.8;
+  }
+}
+
+.pastille-couleur {
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  margin-top: 4px;
+  border-radius: 50%;
+}
+
+.fiche-label {
+  margin-bottom: 8px !important;
+  color: #a66b28 !important;
+  font-family: Arial, sans-serif;
+  font-size: 11px !important;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.vocabulaire {
+  margin-top: 18px;
+  padding: 12px 15px;
+  border-radius: 9px;
+  background: #fff9ee;
+  color: #60472e;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.note-plan {
+  margin: 15px 3px 0;
+  color: #806a51;
+  font-size: 12px;
+  font-style: italic;
+}
+
+/* HABITANTS */
+
+.habitants-interface {
+  min-height: 80vh;
+  background: #f8edda;
+}
+
+/* VILLES ET CONCLUSION */
+
+.villes-interface,
+.conclusion-interface {
+  min-height: 80vh;
+  padding: 65px 7% 90px;
+
+  h1 {
+    margin: 0 0 25px;
+    font-size: clamp(36px, 4vw, 60px);
+    line-height: 1.2;
+  }
+}
+
+.description {
+  max-width: 900px;
+  color: #67503a;
+  font-size: 19px;
+  line-height: 1.8;
+}
+
+.villes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  margin-top: 35px;
+}
+
+.ville-carte {
+  min-height: 220px;
+  padding: 30px;
+  border: 1px solid #e4cda9;
+  border-radius: 18px;
+  background: #fff8ed;
+  box-shadow: 0 5px 18px rgba(80, 50, 20, 0.05);
+
+  h2 {
+    margin: 12px 0;
+    color: #92591e;
+    font-size: 29px;
+  }
+
+  p {
+    color: #624b36;
+    line-height: 1.8;
+  }
+}
+
+.sous-titre {
+  color: #a56a28 !important;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.conclusion-carte {
+  max-width: 1000px;
+  margin-top: 35px;
+  padding: 35px;
+  border: 1px solid #e4cda9;
+  border-radius: 18px;
+  background: #fff8ed;
+
+  h2 {
+    margin-top: 0;
+    color: #8a521c;
+  }
+
+  p {
+    color: #604a35;
+    font-size: 17px;
+    line-height: 1.9;
+  }
+}
+
+/* ADAPTATION TABLETTE */
+
+@media (max-width: 950px) {
+  .exploration-interactive {
     grid-template-columns: 1fr;
   }
 
-  .spaces-panel {
+  .espaces-menu {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .information-panel {
-    grid-column: auto;
-  }
-
-  .city-selector {
-    padding: 20px;
-  }
-
-  .city-selector-buttons {
-    width: 100%;
-
-    button {
-      flex: 1;
-    }
+  .entree-cartes,
+  .villes-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 520px) {
-  .spaces-panel {
+/* ADAPTATION MOBILE */
+
+@media (max-width: 600px) {
+  .ville-navigation {
+    gap: 6px;
+    padding: 15px;
+
+    button {
+      padding: 10px 13px;
+      font-size: 13px;
+    }
+  }
+
+  .entree-ville,
+  .explorer-page,
+  .villes-interface,
+  .conclusion-interface {
+    padding: 35px 20px 60px;
+  }
+
+  .entree-cartes,
+  .villes-grid,
+  .espaces-menu {
     grid-template-columns: 1fr;
   }
 
-  .city-map {
-    min-height: 280px;
+  .entree-citation {
+    padding: 20px;
   }
 
-  .map-panel {
-    padding: 12px;
+  .plan-interactif {
+    padding: 10px;
   }
 
-  .map-zone {
-    padding: 7px;
-
-    strong {
-      font-size: 11px;
-    }
-
-    > span {
-      font-size: 10px;
-    }
+  .fiche-espace {
+    padding: 16px;
   }
 
-  .houses {
-    gap: 2px;
-    margin-top: 6px;
+  .explorer-actions {
+    flex-direction: column;
   }
 
-  .information-panel {
-    padding: 22px;
+  .bouton-principal,
+  .bouton-retour {
+    width: 100%;
   }
 }

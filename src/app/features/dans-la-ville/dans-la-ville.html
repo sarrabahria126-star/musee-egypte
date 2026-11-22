@@ -1,370 +1,466 @@
 
-@if (sousEcran() === 'habitations') {
+<section class="ville-page">
 
-  <app-habitations
-    [ville]="planActif().nom"
-    (retour)="retourAuPlan()"
-    (voirHabitants)="ouvrirHabitants()"
-  />
+  <!-- MENU PRINCIPAL -->
 
-} @else if (sousEcran() === 'habitants') {
+  <nav class="ville-navigation">
 
-  <app-habitants
-    [ville]="planActif().nom"
-    (retour)="retourAuxHabitations()"
-  />
+    <button
+      type="button"
+      [class.actif]="ecran() === 'accueil'"
+      (click)="ouvrirAccueil()">
+      Accueil
+    </button>
 
-} @else {
+    <button
+      type="button"
+      [class.actif]="ecran() === 'vue-aerienne'"
+      (click)="ouvrirVueAerienne()">
+      Vue aérienne
+    </button>
 
-  <section class="exploration-page">
+    <button
+      type="button"
+      [class.actif]="ecran() === 'habitants'"
+      (click)="ouvrirHabitants()">
+      Habitants
+    </button>
 
-    <div class="exploration-container">
+    <button
+      type="button"
+      [class.actif]="ecran() === 'villes'"
+      (click)="ouvrirVilles()">
+      Villes
+    </button>
 
-      <!-- EN-TÊTE -->
-      <header class="page-heading">
+    <button
+      type="button"
+      [class.actif]="ecran() === 'conclusion'"
+      (click)="ouvrirConclusion()">
+      Conclusion
+    </button>
 
-      <span class="eyebrow">
-        ÉTAPE 3 SUR 5 — EXPLORATION URBAINE
-      </span>
+  </nav>
 
-        <h1>Explorer la ville</h1>
 
-        <p>
-          Découvrez comment les habitants vivaient et
-          comment les espaces urbains étaient organisés
-          dans l'Égypte antique.
+  <!-- PAGE 1 : ACCUEIL -->
+
+  @if (ecran() === 'accueil') {
+
+    <main class="entree-ville">
+
+      <div class="conteneur">
+
+        <p class="etape-label">ÉTAPE 3</p>
+
+        <h1>Entrer dans la ville</h1>
+
+        <p class="entree-description">
+          Explorer l'organisation et la vie urbaine
+          de l'Égypte antique, de Memphis à Akhetaton,
+          en passant par les villes ouvrières.
         </p>
 
-      </header>
+        <blockquote class="entree-citation">
+          « Nous avons découvert où les villes se sont
+          développées. Maintenant, entrons dans leur
+          organisation. Derrière les murs, les rues
+          et les monuments se cache un système complexe
+          où chaque espace possède une fonction. »
+        </blockquote>
 
-      <!-- SÉLECTION DES VILLES -->
-      <section class="city-selector">
+        <button
+          type="button"
+          class="bouton-principal"
+          (click)="ouvrirVueAerienne()">
+          Franchir les limites de la ville →
+        </button>
 
-        <div class="city-selector-heading">
+        <h2 class="titre-section">
+          Cinq espaces à explorer
+        </h2>
 
-          <span>CHOISISSEZ UNE VILLE</span>
+        <div class="entree-cartes">
 
-          <h2>{{ planActif().nom }}</h2>
-
-          <p>{{ planActif().sousTitre }}</p>
-
-        </div>
-
-        <div class="city-selector-buttons">
-
-          @for (item of villes; track item) {
+          @for (espace of espaces; track espace.id) {
 
             <button
               type="button"
-              [class.active]="ville() === item"
-              [attr.aria-pressed]="ville() === item"
-              (click)="choisirVille(item)"
-            >
-              {{ nomVille(item) }}
+              class="entree-carte"
+              (click)="choisirEspace(espace.id); ouvrirVueAerienne()">
+
+              <span
+                class="carte-pastille"
+                [style.background]="espace.couleur">
+              </span>
+
+              <h3>{{ espace.titre }}</h3>
+
+              <p>{{ espace.question }}</p>
+
+              <span class="carte-lien">
+                Explorer →
+              </span>
+
             </button>
 
           }
 
         </div>
 
-      </section>
+      </div>
 
-      <!-- INTRODUCTION -->
-      <p class="city-introduction">
-        {{ planActif().introduction }}
-      </p>
+    </main>
 
-      <p class="exploration-instruction">
-        Choisissez un espace à gauche ou cliquez
-        directement sur une zone du plan.
-      </p>
+  }
 
-      <!-- INTERFACE PRINCIPALE -->
-      <div class="exploration-layout">
 
-        <!-- COLONNE GAUCHE -->
-        <aside
-          class="spaces-panel"
-          aria-label="Espaces à explorer"
-        >
+  <!-- PAGE 2 : VUE AÉRIENNE -->
 
-          @for (item of espaces; track item) {
+  @if (ecran() === 'vue-aerienne') {
 
-            <button
-              type="button"
-              class="space-button"
-              [class.active]="espaceSelectionne(item)"
-              [attr.aria-pressed]="espaceSelectionne(item)"
-              (click)="choisirEspace(item)"
-            >
+    <main class="explorer-page">
 
-              <strong>
-                {{ planActif().zones[item].titre }}
-              </strong>
+      <div class="conteneur">
 
-              <span>
-              {{ planActif().zones[item].question }}
-            </span>
+        <header class="explorer-header">
 
-            </button>
+          <p class="etape-label">
+            ÉTAPE 3 — EXPLORATION URBAINE
+          </p>
 
-          }
+          <h1>Explorer la ville</h1>
 
-        </aside>
+          <p>
+            Choisissez un espace. Chaque fiche explique
+            sa fonction et le vocabulaire que les
+            Égyptiens employaient.
+          </p>
 
-        <!-- COLONNE CENTRALE -->
-        <div class="map-panel">
+        </header>
 
-          <div class="map-panel-heading">
+        <div class="exploration-interactive">
 
-            <span>VUE AÉRIENNE</span>
+          <!-- MENU DES CINQ ESPACES -->
 
-            <h3>
-              Plan de {{ planActif().nom }}
-            </h3>
+          <aside class="espaces-menu">
 
-          </div>
+            @for (espace of espaces; track espace.id) {
 
-          <div
-            class="city-map"
-            [class.map-memphis]="ville() === 'memphis'"
-            [class.map-thebes]="ville() === 'thebes'"
-            [class.map-amarna]="ville() === 'amarna'"
-          >
+              <button
+                type="button"
+                class="espace-bouton"
+                [class.selectionne]="espaceActif() === espace.id"
+                [style.--couleur-espace]="espace.couleur"
+                (click)="choisirEspace(espace.id)">
 
-            <!-- TEMPLE -->
-            <button
-              type="button"
-              class="map-zone zone-temple"
-              [class.selected]="espaceSelectionne('religion')"
-              (click)="choisirEspace('religion')"
-            >
+                <strong>{{ espace.titre }}</strong>
 
-              <strong>
-                {{ planActif().zones.religion.titre }}
-              </strong>
+                <span>{{ espace.question }}</span>
 
-              <span>
-              {{
-                  ville() === 'memphis'
-                    ? 'Ptah'
-                    : ville() === 'thebes'
-                      ? 'Karnak et Louxor'
-                      : 'Aton'
-                }}
-            </span>
+              </button>
 
-            </button>
+            }
 
-            <!-- PALAIS -->
-            <button
-              type="button"
-              class="map-zone zone-palace"
-              [class.selected]="espaceSelectionne('pouvoir')"
-              (click)="choisirEspace('pouvoir')"
-            >
+          </aside>
 
-              <strong>
-                {{ planActif().zones.pouvoir.titre }}
-              </strong>
 
-              <span>Pouvoir</span>
+          <!-- PLAN ARCHÉOLOGIQUE -->
 
-            </button>
+          <div class="plan-interactif">
 
-            <!-- HABITATIONS -->
-            <button
-              type="button"
-              class="map-zone zone-habitat"
-              [class.selected]="espaceSelectionne('habitat')"
-              (click)="choisirEspace('habitat')"
-            >
+            <div class="plan-conteneur">
 
-              <strong>
-                {{ planActif().zones.habitat.titre }}
-              </strong>
+              <img
+                src="/images/dans-la-ville/plan-amarna.jpg"
+                alt="Plan archéologique de la ville d'Amarna">
 
-              <div class="houses">
+              <svg
+                class="plan-calques"
+                viewBox="0 0 900 700"
+                preserveAspectRatio="none"
+                aria-label="Zones colorées du plan">
 
-                @for (
-                    house of [1,2,3,4,5,6,7,8,9,10,11,12];
-                  track house
-                  ) {
+                <!-- HABITATIONS -->
 
-                  <span class="house"></span>
+                @if (espaceActif() === 'habitations') {
+
+                  <g
+                    fill="#70b981"
+                    fill-opacity="0.52"
+                    stroke="#327744"
+                    stroke-width="3">
+
+                    <polygon
+                      points="50,355 170,375 160,585 40,560">
+                    </polygon>
+
+                    <polygon
+                      points="610,430 795,485 760,620 570,565">
+                    </polygon>
+
+                  </g>
 
                 }
 
+
+                <!-- RUES -->
+
+                @if (espaceActif() === 'rues') {
+
+                  <g
+                    fill="none"
+                    stroke="#e8ba47"
+                    stroke-width="16"
+                    stroke-opacity="0.78">
+
+                    <path d="M305 125 L235 650"></path>
+
+                    <path d="M235 450 L735 600"></path>
+
+                  </g>
+
+                }
+
+
+                <!-- PALAIS -->
+
+                @if (espaceActif() === 'palais') {
+
+                  <g
+                    fill="#e59c69"
+                    fill-opacity="0.55"
+                    stroke="#af602d"
+                    stroke-width="3">
+
+                    <polygon
+                      points="135,320 270,350 250,550 110,525">
+                    </polygon>
+
+                    <polygon
+                      points="280,395 400,420 385,510 275,485">
+                    </polygon>
+
+                  </g>
+
+                }
+
+
+                <!-- TEMPLES -->
+
+                @if (espaceActif() === 'temples') {
+
+                  <g
+                    fill="#a48bdd"
+                    fill-opacity="0.5"
+                    stroke="#6650a4"
+                    stroke-width="3">
+
+                    <polygon
+                      points="355,55 850,155 815,315 325,210">
+                    </polygon>
+
+                    <polygon
+                      points="265,525 400,550 380,665 245,635">
+                    </polygon>
+
+                  </g>
+
+                }
+
+
+                <!-- ADMINISTRATION -->
+
+                @if (espaceActif() === 'administration') {
+
+                  <g
+                    fill="#73acd6"
+                    fill-opacity="0.55"
+                    stroke="#3678a7"
+                    stroke-width="3">
+
+                    <polygon
+                      points="410,355 610,390 585,505 400,475">
+                    </polygon>
+
+                    <polygon
+                      points="480,510 650,550 630,640 460,605">
+                    </polygon>
+
+                  </g>
+
+                }
+
+              </svg>
+
+            </div>
+
+
+            <!-- DESCRIPTION DE L'ESPACE -->
+
+            <article class="fiche-espace">
+
+              <span
+                class="pastille-couleur"
+                [style.background]="espaceSelectionne.couleur">
+              </span>
+
+              <div>
+
+                <p class="fiche-label">
+                  ESPACE SÉLECTIONNÉ
+                </p>
+
+                <h2>{{ espaceSelectionne.titre }}</h2>
+
+                <p>
+                  {{ espaceSelectionne.description }}
+                </p>
+
+                <div class="vocabulaire">
+                  <strong>Vocabulaire :</strong>
+                  {{ espaceSelectionne.vocabulaire }}
+                </div>
+
               </div>
 
-            </button>
+            </article>
 
-            <!-- ADMINISTRATION -->
-            <button
-              type="button"
-              class="map-zone zone-admin"
-              [class.selected]="espaceSelectionne('administration')"
-              (click)="choisirEspace('administration')"
-            >
-
-              <strong>Administration</strong>
-
-            </button>
-
-            <!-- ATELIERS -->
-            <button
-              type="button"
-              class="map-zone zone-workshops"
-              [class.selected]="espaceSelectionne('administration')"
-              (click)="choisirEspace('administration')"
-            >
-
-              <strong>
-                Ateliers et réserves
-              </strong>
-
-            </button>
-
-            <!-- RUE PRINCIPALE -->
-            <button
-              type="button"
-              class="map-road road-horizontal"
-              [class.selected]="espaceSelectionne('circulation')"
-              (click)="choisirEspace('circulation')"
-            >
-
-              {{
-                ville() === 'amarna'
-                  ? 'Voie royale'
-                  : 'Rue principale'
-              }}
-
-            </button>
-
-            <!-- AXE VERTICAL -->
-            <button
-              type="button"
-              class="map-road road-vertical"
-              [class.selected]="espaceSelectionne('circulation')"
-              aria-label="Explorer les voies de circulation"
-              (click)="choisirEspace('circulation')"
-            ></button>
-
-          </div>
-
-          <p class="map-caption">
-            Reconstitution pédagogique schématique,
-            non à l'échelle.
-          </p>
-
-          <div class="map-legend">
-
-          <span>
-            <i class="legend-habitat"></i>
-            Habitations
-          </span>
-
-            <span>
-            <i class="legend-temple"></i>
-            Temples
-          </span>
-
-            <span>
-            <i class="legend-palace"></i>
-            Palais
-          </span>
-
-            <span>
-            <i class="legend-admin"></i>
-            Administration
-          </span>
-
-          </div>
-
-        </div>
-
-        <!-- COLONNE DROITE -->
-        <aside class="information-panel">
-
-        <span class="information-badge">
-          Reconstitution pédagogique
-        </span>
-
-          <h2>
-            {{ espaceActif().titre }}
-          </h2>
-
-          <div class="information-category">
-            FONCTION URBAINE
-          </div>
-
-          <div class="information-description">
-
-            <strong>
-              {{ espaceActif().fonction }}
-            </strong>
-
-            <p>
-              {{ espaceActif().description }}
+            <p class="note-plan">
+              Les zones colorées sont des repères
+              pédagogiques approximatifs sur le plan.
             </p>
 
           </div>
 
-          <div class="discover-heading">
-            À DÉCOUVRIR
-          </div>
+        </div>
 
-          <ol class="discover-list">
 
-            @for (
-                item of espaceActif().decouvertes;
-              track $index
-              ) {
+        <!-- BOUTONS DE NAVIGATION -->
 
-              <li>
+        <div class="explorer-actions">
 
-              <span class="discover-number">
-                {{ $index + 1 }}
-              </span>
+          <button
+            type="button"
+            class="bouton-retour"
+            (click)="ouvrirAccueil()">
+            ← Retour à l'accueil
+          </button>
 
-                <span>{{ item }}</span>
+          <button
+            type="button"
+            class="bouton-principal"
+            (click)="ouvrirHabitants()">
+            Découvrir les habitants →
+          </button>
 
-              </li>
-
-            }
-
-          </ol>
-
-          <!-- EXPLORER LES HABITATIONS -->
-          @if (espaceSelectionne('habitat')) {
-
-            <button
-              type="button"
-              class="btn-explorer-habitation"
-              (click)="ouvrirHabitations()"
-            >
-              Explorer une habitation
-              <span aria-hidden="true">→</span>
-            </button>
-
-          }
-
-          <div class="information-footer">
-
-            <span>VILLE EXPLORÉE</span>
-
-            <strong>
-              {{ planActif().nom }}
-            </strong>
-
-          </div>
-
-        </aside>
+        </div>
 
       </div>
 
-    </div>
+    </main>
 
-  </section>
+  }
 
-}
+
+  <!-- PAGE 3 : HABITANTS -->
+
+  @if (ecran() === 'habitants') {
+
+    <main class="habitants-interface">
+
+      <app-habitants
+        (retour)="ouvrirVueAerienne()"
+        (suivant)="ouvrirVilles()">
+      </app-habitants>
+
+    </main>
+
+  }
+
+
+  <!-- PAGE 4 : VILLES -->
+
+  @if (ecran() === 'villes') {
+
+    <main class="villes-interface">
+
+      <app-villes
+        (retour)="ouvrirHabitants()"
+        (suivant)="ouvrirConclusion()">
+      </app-villes>
+
+    </main>
+
+  }
+
+
+  <!-- PAGE 5 : CONCLUSION -->
+
+  @if (ecran() === 'conclusion') {
+
+    <main class="conclusion-interface">
+
+      <div class="conteneur">
+
+        <p class="etape-label">
+          ÉTAPE 3 — SYNTHÈSE
+        </p>
+
+        <h1>
+          Comprendre la ville égyptienne
+        </h1>
+
+        <p class="description">
+          La ville égyptienne était organisée autour
+          de plusieurs fonctions : habiter, circuler,
+          gouverner, pratiquer les cultes et administrer
+          les ressources.
+        </p>
+
+        <article class="conclusion-carte">
+
+          <h2>Ce que nous avons découvert</h2>
+
+          <p>
+            Les habitations accueillaient la population.
+            Les rues reliaient les différents quartiers.
+            Les palais étaient associés au pouvoir royal,
+            tandis que les temples occupaient une place
+            importante dans la vie religieuse.
+          </p>
+
+          <p>
+            Les espaces administratifs permettaient
+            d'organiser les ressources et les activités.
+            Chaque habitant participait à la vie
+            de la ville selon son rôle.
+          </p>
+
+        </article>
+
+        <div class="explorer-actions">
+
+          <button
+            type="button"
+            class="bouton-retour"
+            (click)="ouvrirVilles()">
+            ← Retour aux villes
+          </button>
+
+          <button
+            type="button"
+            class="bouton-principal"
+            (click)="ouvrirAccueil()">
+            Recommencer l'étape →
+          </button>
+
+        </div>
+
+      </div>
+
+    </main>
+
+  }
+
+</section>

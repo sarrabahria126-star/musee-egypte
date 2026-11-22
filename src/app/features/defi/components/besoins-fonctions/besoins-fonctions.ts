@@ -1,6 +1,6 @@
 
-import { CommonModule } from '@angular/common';
 import { Component, output } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 interface Besoin {
   label: string;
@@ -32,109 +32,67 @@ export class BesoinsFonctions {
     {
       id: 'habitat',
       titre: 'Habitat',
-      image: '/images/defi/habitat.png',
+      image: '/images/defi/habitat.jpg',
       couleur: '#e4b48f',
-      description:
-        'Accueillir la population et organiser les quartiers résidentiels.',
+      description: 'Accueillir la population et organiser les quartiers résidentiels.',
       besoins: [
-        {
-          label: 'Besoin',
-          valeur: 'Hors des zones inondables'
-        },
-        {
-          label: 'Proche de',
-          valeur: 'Agriculture, administration, temple'
-        }
+        { label: 'Besoin', valeur: 'Hors des zones inondables' },
+        { label: 'Proche de', valeur: 'Agriculture, administration, temple' }
       ]
     },
     {
       id: 'agriculture',
       titre: 'Agriculture',
-      image: '/images/defi/agriculture.png',
+      image: '/images/defi/agriculture.jpg',
       couleur: '#9fc47c',
-      description:
-        'Assurer la production alimentaire grâce aux terres fertiles.',
+      description: 'Assurer la production alimentaire grâce aux terres fertiles.',
       besoins: [
-        {
-          label: 'Besoin',
-          valeur: 'Terres fertiles, eau du Nil'
-        },
-        {
-          label: 'Proche de',
-          valeur: 'Habitat'
-        }
+        { label: 'Besoin', valeur: 'Terres fertiles, eau du Nil' },
+        { label: 'Proche de', valeur: 'Habitat' }
       ]
     },
     {
       id: 'artisanat',
       titre: 'Artisanat',
-      image: '/images/defi/artisanat.png',
+      image: '/images/defi/artisanat.jpg',
       couleur: '#d9946d',
-      description:
-        'Produire les objets et les matériaux de la vie quotidienne.',
+      description: 'Produire les objets et les matériaux de la vie quotidienne.',
       besoins: [
-        {
-          label: 'Besoin',
-          valeur: 'Matériaux et produits à échanger'
-        },
-        {
-          label: 'Proche de',
-          valeur: 'Port fluvial'
-        }
+        { label: 'Besoin', valeur: 'Matériaux et produits à échanger' },
+        { label: 'Proche de', valeur: 'Port fluvial' }
       ]
     },
     {
       id: 'administration',
       titre: 'Administration',
-      image: '/images/defi/administration.png',
+      image: '/images/defi/administration.jpg',
       couleur: '#edcd59',
-      description:
-        'Gérer les ressources, les récoltes et les activités de la ville.',
+      description: 'Gérer les ressources, les récoltes et les activités de la ville.',
       besoins: [
-        {
-          label: 'Besoin',
-          valeur: 'Position centrale, bien reliée'
-        },
-        {
-          label: 'Proche de',
-          valeur: 'Port fluvial, quartiers'
-        }
+        { label: 'Besoin', valeur: 'Position centrale, bien reliée' },
+        { label: 'Proche de', valeur: 'Port fluvial, quartiers' }
       ]
     },
     {
       id: 'temple',
       titre: 'Temple',
-      image: '/images/defi/temple.png',
+      image: '/images/defi/temple.jpg',
       couleur: '#aab4d0',
-      description:
-        'Accueillir les pratiques religieuses et les cérémonies.',
+      description: 'Accueillir les pratiques religieuses et les cérémonies.',
       besoins: [
-        {
-          label: 'Besoin',
-          valeur: 'Accessible depuis l’habitat'
-        },
-        {
-          label: 'Proche de',
-          valeur: 'Habitat'
-        }
+        { label: 'Besoin', valeur: 'Accessible depuis l’habitat' },
+        { label: 'Proche de', valeur: 'Habitat' }
       ]
     },
     {
       id: 'port',
       titre: 'Port fluvial',
-      image: '/images/defi/port-fluvial.png',
+      image: '/images/defi/port.jpg',
       couleur: '#80b5d8',
-      description:
-        'Assurer le transport des marchandises et les échanges par le Nil.',
+      description: 'Assurer le transport des marchandises et les échanges par le Nil.',
       besoins: [
-        {
-          label: 'Besoin',
-          valeur: 'Rive du Nil'
-        },
-        {
-          label: 'Proche de',
-          valeur: 'Artisanat, administration'
-        }
+        { label: 'Besoin', valeur: 'Rive du Nil' },
+        { label: 'Proche de', valeur: 'Artisanat, administration' }
       ]
     }
   ];

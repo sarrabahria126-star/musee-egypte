@@ -34,7 +34,7 @@ export class TroisContraintes {
       id: 'crue',
       titre: 'La crue du Nil',
       couleur: '#80b5d8',
-      image: '/images/defi/crue-nil.png',
+      image: '/images/defi/crue.jpg',
       imageDescription:
         'Crue du Nil et cycle agricole',
       objectif:
@@ -62,7 +62,7 @@ export class TroisContraintes {
       id: 'secheresse',
       titre: 'La sécheresse',
       couleur: '#e5c996',
-      image: '/images/defi/secheresse.png',
+      image: '/images/defi/secheresse.jpg',
       imageDescription:
         'Terre craquelée et niveau du Nil très bas',
       objectif:
@@ -90,7 +90,7 @@ export class TroisContraintes {
       id: 'croissance',
       titre: 'Croissance démographique',
       couleur: '#aab4d1',
-      image: '/images/defi/croissance.png',
+      image: '/images/defi/croissance.jpg',
       imageDescription:
         'Quartier dense et animé en brique crue',
       objectif:

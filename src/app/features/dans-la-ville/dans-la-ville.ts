@@ -1,381 +1,137 @@
 
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  signal
-} from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { Habitants } from './components/habitations/habitations';
+import { Villes } from './components/villes/villes';
 
-import { Habitations } from './components/habitations/habitations';
-import { Habitants } from './components/habitants/habitants';
+type PageVille =
+  | 'accueil'
+  | 'vue-aerienne'
+  | 'habitants'
+  | 'villes'
+  | 'conclusion';
 
-type Ville = 'memphis' | 'thebes' | 'amarna';
-
-type Espace =
-  | 'habitat'
-  | 'circulation'
-  | 'pouvoir'
-  | 'religion'
+type EspaceId =
+  | 'habitations'
+  | 'rues'
+  | 'palais'
+  | 'temples'
   | 'administration';
 
-type SousEcran = 'plan' | 'habitations' | 'habitants';
-
-interface Zone {
+interface Espace {
+  id: EspaceId;
   titre: string;
   question: string;
-  fonction: string;
   description: string;
-  decouvertes: string[];
-}
-
-interface PlanVille {
-  nom: string;
-  sousTitre: string;
-  introduction: string;
-  zones: Record<Espace, Zone>;
+  vocabulaire: string;
+  couleur: string;
 }
 
 @Component({
   selector: 'app-dans-la-ville',
   standalone: true,
-  imports: [Habitations, Habitants],
+  imports: [Habitants, Villes],
   templateUrl: './dans-la-ville.html',
-  styleUrl: './dans-la-ville.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrl: './dans-la-ville.scss'
 })
 export class DansLaVille {
 
-  readonly villes: Ville[] = [
-    'memphis',
-    'thebes',
-    'amarna'
-  ];
+  readonly ecran = signal<PageVille>('accueil');
+
+  readonly espaceActif = signal<EspaceId>('habitations');
 
   readonly espaces: Espace[] = [
-    'habitat',
-    'circulation',
-    'pouvoir',
-    'religion',
-    'administration'
+    {
+      id: 'habitations',
+      titre: 'Les habitations',
+      question: 'Comment vivait-on dans la ville ?',
+      description:
+        'Les habitants vivaient dans des maisons de briques crues. ' +
+        'Les quartiers regroupaient des logements de différentes tailles, ' +
+        'avec des cours et des espaces consacrés aux activités quotidiennes.',
+      vocabulaire: 'Maison, cour, quartier résidentiel',
+      couleur: '#70b981'
+    },
+    {
+      id: 'rues',
+      titre: 'Les rues',
+      question: 'Comment circulait-on ?',
+      description:
+        'Les rues reliaient les habitations, les palais, les temples ' +
+        'et les espaces administratifs. À Akhetaton, la route royale ' +
+        'constituait un axe important de circulation.',
+      vocabulaire: 'Route royale, ruelle, circulation',
+      couleur: '#e8ba47'
+    },
+    {
+      id: 'palais',
+      titre: 'Les palais',
+      question: 'Où se concentrait le pouvoir ?',
+      description:
+        'Le Grand Palais et la Maison du roi étaient associés ' +
+        'à la présence du pharaon et aux activités du pouvoir royal.',
+      vocabulaire: 'Pharaon, palais, Maison du roi',
+      couleur: '#e59c69'
+    },
+    {
+      id: 'temples',
+      titre: 'Les temples',
+      question: 'Quelle place occupait la religion ?',
+      description:
+        'Les temples étaient des espaces religieux majeurs. ' +
+        'À Akhetaton, les temples d’Aton occupaient une place ' +
+        'importante dans l’organisation de la ville.',
+      vocabulaire: 'Temple, sanctuaire, offrande',
+      couleur: '#a48bdd'
+    },
+    {
+      id: 'administration',
+      titre: 'Les espaces administratifs',
+      question: 'Comment la ville était-elle gérée ?',
+      description:
+        'Les scribes et les responsables administraient les ressources. ' +
+        'Des bureaux, des magasins et des espaces de stockage ' +
+        'participaient au fonctionnement de la ville.',
+      vocabulaire: 'Scribe, archives, magasins, greniers',
+      couleur: '#73acd6'
+    }
   ];
 
-  readonly ville = signal<Ville>('memphis');
-
-  readonly espace = signal<Espace>('habitat');
-
-  readonly sousEcran = signal<SousEcran>('plan');
-
-  readonly plansVilles: Record<Ville, PlanVille> = {
-
-    memphis: {
-      nom: 'Memphis',
-      sousTitre: 'La ville du pouvoir',
-      introduction:
-        'Découvrez comment la capitale égyptienne organisait les activités politiques, religieuses et quotidiennes.',
-
-      zones: {
-        habitat: {
-          titre: 'Les habitations',
-          question: 'Comment vivait-on dans la ville ?',
-          fonction: 'Habiter et vivre ensemble',
-          description:
-            'À Memphis, les habitants vivaient dans des quartiers proches des lieux de travail, des marchés et des espaces religieux.',
-          decouvertes: [
-            'Les maisons en briques crues',
-            'Les cours intérieures',
-            'Les pièces de vie',
-            'Les espaces de stockage',
-            'La vie quotidienne des familles'
-          ]
-        },
-
-        circulation: {
-          titre: 'Les rues',
-          question: 'Comment circulait-on ?',
-          fonction: 'Circulation et échanges',
-          description:
-            'Les rues permettaient de relier les habitations, les espaces administratifs et les lieux religieux. Le Nil facilitait également le transport.',
-          decouvertes: [
-            'Les rues principales',
-            'Les passages entre les maisons',
-            'Les marchés',
-            'Les déplacements à pied',
-            'Les échanges par le Nil'
-          ]
-        },
-
-        pouvoir: {
-          titre: 'Les palais',
-          question: 'Où se concentrait le pouvoir ?',
-          fonction: 'Pouvoir royal',
-          description:
-            'Memphis était un important centre du pouvoir royal. Les espaces palatiaux et les bâtiments officiels participaient à la gestion du royaume.',
-          decouvertes: [
-            'Les espaces de réception',
-            'Les salles officielles',
-            'Les cours',
-            'Les espaces réservés au pouvoir',
-            'Les activités de la cour'
-          ]
-        },
-
-        religion: {
-          titre: 'Les temples',
-          question: 'Quelle place occupait la religion ?',
-          fonction: 'Religion et vie urbaine',
-          description:
-            'Le culte de Ptah occupait une place importante à Memphis. Les temples jouaient un rôle religieux, économique et symbolique.',
-          decouvertes: [
-            'Le temple de Ptah',
-            'Les cours religieuses',
-            'Les sanctuaires',
-            'Les prêtres',
-            'Les offrandes'
-          ]
-        },
-
-        administration: {
-          titre: 'Les espaces administratifs',
-          question: 'Comment la ville était-elle gérée ?',
-          fonction: 'Administration du royaume',
-          description:
-            'Les responsables administraient les ressources, les échanges et les activités du pouvoir royal.',
-          decouvertes: [
-            'Les bureaux des scribes',
-            'Les archives',
-            'Les réserves',
-            'La gestion des ressources',
-            'Les ateliers'
-          ]
-        }
-      }
-    },
-
-    thebes: {
-      nom: 'Thèbes',
-      sousTitre: 'La ville des dieux',
-      introduction:
-        'Explorez une grande ville religieuse structurée par les temples, les quartiers et les activités liées au Nil.',
-
-      zones: {
-        habitat: {
-          titre: 'Les habitations',
-          question: 'Comment vivait-on à Thèbes ?',
-          fonction: 'Vie quotidienne',
-          description:
-            'Les habitants vivaient dans des maisons et des quartiers liés aux activités artisanales, religieuses et commerciales.',
-          decouvertes: [
-            'Les maisons',
-            'Les cours intérieures',
-            'Les quartiers d’artisans',
-            'La préparation des repas',
-            'La vie familiale'
-          ]
-        },
-
-        circulation: {
-          titre: 'Les rues',
-          question: 'Comment se déplaçait-on ?',
-          fonction: 'Relier les quartiers et les temples',
-          description:
-            'Les voies de circulation reliaient les quartiers, les temples et les zones proches du Nil. Certaines voies servaient aux processions religieuses.',
-          decouvertes: [
-            'Les rues des quartiers',
-            'Les voies processionnelles',
-            'Les accès aux temples',
-            'Les marchés',
-            'Le transport fluvial'
-          ]
-        },
-
-        pouvoir: {
-          titre: 'Les palais',
-          question: 'Où s’exerçait le pouvoir ?',
-          fonction: 'Pouvoir royal et cérémoniel',
-          description:
-            'Les espaces royaux étaient associés aux fonctions politiques et aux cérémonies du pouvoir pharaonique.',
-          decouvertes: [
-            'Les résidences royales',
-            'Les cours officielles',
-            'Les espaces de réception',
-            'Les cérémonies',
-            'Les relations avec les temples'
-          ]
-        },
-
-        religion: {
-          titre: 'Les temples',
-          question: 'Pourquoi les temples étaient-ils essentiels ?',
-          fonction: 'Centre religieux majeur',
-          description:
-            'Thèbes était un centre religieux majeur, notamment grâce aux sanctuaires de Karnak et de Louxor dédiés principalement au culte d’Amon.',
-          decouvertes: [
-            'Le temple de Karnak',
-            'Le temple de Louxor',
-            'Les pylônes',
-            'Les salles à colonnes',
-            'Les sanctuaires'
-          ]
-        },
-
-        administration: {
-          titre: 'Les espaces administratifs',
-          question: 'Qui organisait les activités ?',
-          fonction: 'Gestion religieuse et économique',
-          description:
-            'Les administrations royales et les institutions religieuses organisaient les ressources, les travailleurs et les activités économiques.',
-          decouvertes: [
-            'Les scribes',
-            'Les archives',
-            'Les magasins',
-            'Les ateliers',
-            'La gestion des offrandes'
-          ]
-        }
-      }
-    },
-
-    amarna: {
-      nom: 'Amarna',
-      sousTitre: 'La ville planifiée',
-      introduction:
-        'Découvrez la capitale créée sous Akhenaton, organisée autour d’un axe principal, de palais, de temples et de quartiers.',
-
-      zones: {
-        habitat: {
-          titre: 'Les habitations',
-          question: 'Comment vivait-on à Amarna ?',
-          fonction: 'Organisation résidentielle',
-          description:
-            'Amarna comprenait des quartiers résidentiels, des maisons de tailles différentes et des espaces associés aux activités domestiques.',
-          decouvertes: [
-            'Les maisons familiales',
-            'Les grandes résidences',
-            'Les cours',
-            'Les cuisines',
-            'Les ateliers domestiques'
-          ]
-        },
-
-        circulation: {
-          titre: 'Les rues',
-          question: 'Comment circulait-on dans la capitale ?',
-          fonction: 'Organisation des déplacements',
-          description:
-            'Un axe principal reliait les grands ensembles officiels. Des voies secondaires desservaient les quartiers résidentiels.',
-          decouvertes: [
-            'La voie royale',
-            'Les rues secondaires',
-            'Les quartiers',
-            'Les déplacements officiels',
-            'Les accès aux bâtiments'
-          ]
-        },
-
-        pouvoir: {
-          titre: 'Les palais',
-          question: 'Où se trouvait le pouvoir royal ?',
-          fonction: 'Pouvoir du pharaon',
-          description:
-            'Les ensembles palatiaux occupaient une place importante dans la capitale d’Akhenaton.',
-          decouvertes: [
-            'Le Grand Palais',
-            'Les cours royales',
-            'Les espaces de réception',
-            'Les bâtiments officiels',
-            'Les cérémonies royales'
-          ]
-        },
-
-        religion: {
-          titre: 'Les temples',
-          question: 'Quelle religion organisait la ville ?',
-          fonction: 'Culte d’Aton',
-          description:
-            'Les temples d’Aton comprenaient de vastes espaces ouverts, permettant les cérémonies et les offrandes sous la lumière solaire.',
-          decouvertes: [
-            'Le Grand Temple d’Aton',
-            'Les cours ouvertes',
-            'Les autels',
-            'Les espaces d’offrandes',
-            'Le symbolisme solaire'
-          ]
-        },
-
-        administration: {
-          titre: 'Les espaces administratifs',
-          question: 'Comment la capitale était-elle administrée ?',
-          fonction: 'Gestion de la capitale',
-          description:
-            'Des bâtiments officiels accueillaient les activités administratives, les scribes et la gestion des ressources.',
-          decouvertes: [
-            'Les bureaux',
-            'Les scribes',
-            'Les archives',
-            'Les réserves',
-            'Les ateliers'
-          ]
-        }
-      }
-    }
-  };
-
-  readonly planActif = computed(
-    () => this.plansVilles[this.ville()]
-  );
-
-  readonly espaceActif = computed(
-    () => this.planActif().zones[this.espace()]
-  );
-
-  readonly titreVille = computed(
-    () => this.planActif().nom
-  );
-
-  choisirVille(ville: Ville): void {
-    this.ville.set(ville);
-    this.espace.set('habitat');
-    this.sousEcran.set('plan');
+  get espaceSelectionne(): Espace {
+    return this.espaces.find(
+      espace => espace.id === this.espaceActif()
+    ) ?? this.espaces[0];
   }
 
-  choisirEspace(espace: Espace): void {
-    this.espace.set(espace);
+  allerVers(page: PageVille): void {
+    this.ecran.set(page);
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   }
 
-  espaceSelectionne(espace: Espace): boolean {
-    return this.espace() === espace;
+  ouvrirAccueil(): void {
+    this.allerVers('accueil');
   }
 
-  nomVille(ville: Ville): string {
-    return this.plansVilles[ville].nom;
-  }
-
-  ouvrirHabitations(): void {
-    this.sousEcran.set('habitations');
-    this.remonterPage();
+  ouvrirVueAerienne(): void {
+    this.allerVers('vue-aerienne');
   }
 
   ouvrirHabitants(): void {
-    this.sousEcran.set('habitants');
-    this.remonterPage();
+    this.allerVers('habitants');
   }
 
-  retourAuPlan(): void {
-    this.sousEcran.set('plan');
-    this.remonterPage();
+  ouvrirVilles(): void {
+    this.allerVers('villes');
   }
 
-  retourAuxHabitations(): void {
-    this.sousEcran.set('habitations');
-    this.remonterPage();
+  ouvrirConclusion(): void {
+    this.allerVers('conclusion');
   }
 
-  private remonterPage(): void {
-    if (typeof window !== 'undefined') {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    }
+  choisirEspace(id: EspaceId): void {
+    this.espaceActif.set(id);
   }
 }

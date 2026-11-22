@@ -3,27 +3,34 @@
 
   <div class="vue-layout">
 
-    <!-- PARTIE GAUCHE : VUE AÉRIENNE -->
+    <!-- PARTIE GAUCHE -->
 
     <div class="vue-main">
 
       <header class="vue-header">
+
         <h1>Voici ta ville</h1>
 
         <p>
           Vue aérienne de la ville créée,
           avec le bilan de tes décisions.
         </p>
+
       </header>
+
+      <!-- IMAGE DE LA VILLE -->
 
       <div class="vue-image">
 
         <img
-          src="/images/defi/vue-aerienne.png"
+          src="/images/defi/vue-aerienne.jpg"
           alt="Vue aérienne de la ville égyptienne créée"
-          loading="eager">
+          loading="eager"
+        />
 
       </div>
+
+      <!-- BOUTON RETOUR -->
 
       <div class="vue-actions">
 
@@ -31,7 +38,9 @@
           type="button"
           class="vue-retour"
           (click)="retournerContraintes()">
+
           ← Retour aux trois contraintes
+
         </button>
 
         <span class="site-indication">
@@ -46,6 +55,8 @@
 
     <aside class="score-panel">
 
+      <!-- SCORE ET QUALIFICATION -->
+
       <div class="score-top">
 
         <div
@@ -53,8 +64,11 @@
           [style.--score]="pourcentageTotal">
 
           <div class="score-interieur">
+
             <strong>{{ scoreTotal }}</strong>
+
             <span>/ 100</span>
+
           </div>
 
         </div>
@@ -91,7 +105,7 @@
 
       </div>
 
-      <!-- DÉTAIL DES SCORES -->
+      <!-- CATÉGORIES DU SCORE -->
 
       <div class="score-categories">
 
@@ -101,7 +115,9 @@
 
             <div class="score-ligne">
 
-              <strong>{{ categorie.titre }}</strong>
+              <strong>
+                {{ categorie.titre }}
+              </strong>
 
               <span>
                 {{ categorie.points }} /
@@ -123,6 +139,8 @@
 
         }
 
+        <!-- TOTAL -->
+
         <div class="score-total">
 
           <strong>Total</strong>
@@ -137,23 +155,31 @@
 
       <div class="score-espace"></div>
 
-      <!-- BOUTON TOUJOURS ACTIF -->
+      <!-- BOUTON SUIVANT -->
 
       <button
         type="button"
         class="score-suivant"
         (click)="voirBilan()">
+
         Voir le bilan des décisions
+
       </button>
 
     </aside>
 
   </div>
 
+  <!-- PIED DE PAGE -->
+
   <footer class="vue-footer">
+
     Étape 5 : devenir urbaniste de l'Égypte antique
+
     <span>|</span>
+
     Projet de théorie et histoire de l'urbanisme
+
   </footer>
 
 </section>
