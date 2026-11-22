@@ -1,0 +1,127 @@
+
+<section class="conclusion-page">
+
+  <header class="conclusion-header">
+
+    <span class="conclusion-badge">
+      BILAN DE L'ÉTAPE
+    </span>
+
+    <h1>
+      Le territoire et les fonctions organisent la ville
+    </h1>
+
+    <p>
+      Passer de la découverte de la ville égyptienne
+      à sa conception : tu as vu comment le territoire,
+      les ressources, les contraintes et les fonctions
+      influencent l'organisation urbaine.
+    </p>
+
+  </header>
+
+  <!-- LES SIX ÉTAPES -->
+
+  <div class="conclusion-etapes">
+
+    @for (etape of etapes; track etape.numero) {
+
+      <div class="etape-wrapper">
+
+        <article
+          class="etape-card"
+          [style.background]="etape.couleur">
+
+          <span class="etape-numero">
+            {{ etape.numero }}
+          </span>
+
+          <div class="etape-contenu">
+
+            <strong>{{ etape.titre }}</strong>
+
+            <span>{{ etape.description }}</span>
+
+          </div>
+
+        </article>
+
+        @if (etape.numero < 6) {
+          <span class="etape-fleche" aria-hidden="true">
+            ↔
+          </span>
+        }
+
+      </div>
+
+    }
+
+  </div>
+
+  <!-- CITATION -->
+
+  <blockquote class="conclusion-citation">
+    « Chaque décision d'implantation répond à un besoin
+    ou à une contrainte : la ville naît de leur équilibre. »
+  </blockquote>
+
+  <!-- SCORE ET BOUTONS -->
+
+  <div class="conclusion-resultat">
+
+    <div class="conclusion-score">
+
+      <span class="score-label">
+        Score de l'étape
+      </span>
+
+      <div class="score-contenu">
+
+        <strong class="score-valeur">
+          {{ scoreFinal }} / 100
+        </strong>
+
+        <span class="score-qualification">
+          {{ qualification }}
+        </span>
+
+      </div>
+
+    </div>
+
+    <div class="conclusion-actions">
+
+      <button
+        type="button"
+        class="bouton-revoir"
+        (click)="revoirEtape()">
+        Revoir l'étape
+      </button>
+
+      <button
+        type="button"
+        class="bouton-terminer"
+        (click)="terminerParcours()">
+        Terminer le parcours
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- NOTE PÉDAGOGIQUE -->
+
+  <p class="conclusion-note">
+    Note : les règles d'implantation et le scénario
+    représentent une simulation pédagogique inspirée
+    de l'Égypte antique, et non un modèle universel
+    de toutes les villes égyptiennes.
+  </p>
+
+  <footer class="conclusion-footer">
+    Étape 5 : devenir urbaniste de l'Égypte antique
+    <span>|</span>
+    Projet de théorie et histoire de l'urbanisme
+  </footer>
+
+</section>

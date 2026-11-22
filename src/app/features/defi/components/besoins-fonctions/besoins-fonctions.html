@@ -1,0 +1,84 @@
+
+<section class="besoins-page">
+
+  <header class="besoins-header">
+    <h1>Chaque fonction a ses besoins</h1>
+
+    <p>
+      Les besoins d'une fonction déterminent
+      son emplacement dans la ville.
+    </p>
+  </header>
+
+  <div class="fonctions-grid">
+
+    @for (fonction of fonctions; track fonction.id) {
+
+      <article class="fonction-card">
+
+        <div
+          class="fonction-card-header"
+          [style.background]="fonction.couleur">
+
+          <h2>{{ fonction.titre }}</h2>
+        </div>
+
+        <div class="fonction-card-body">
+
+          <div class="fonction-image">
+            <img
+              [src]="fonction.image"
+              [alt]="fonction.titre"
+              loading="lazy">
+          </div>
+
+          <p class="fonction-description">
+            {{ fonction.description }}
+          </p>
+
+          <div class="besoins-list">
+
+            @for (besoin of fonction.besoins; track besoin.label) {
+
+              <div class="besoin-row">
+                <strong>{{ besoin.label }}</strong>
+                <span>{{ besoin.valeur }}</span>
+              </div>
+
+            }
+
+          </div>
+
+        </div>
+
+      </article>
+
+    }
+
+  </div>
+
+  <div class="besoins-actions">
+
+    <button
+      type="button"
+      class="retour-button"
+      (click)="retournerAuPlan()">
+      ← Retour au plan de la ville
+    </button>
+
+    <button
+      type="button"
+      class="suivant-button"
+      (click)="passerAuxContraintes()">
+      Suite : faire face aux contraintes →
+    </button>
+
+  </div>
+
+  <footer class="besoins-footer">
+    Étape 5 : devenir urbaniste de l'Égypte antique
+    <span>|</span>
+    Projet de théorie et histoire de l'urbanisme
+  </footer>
+
+</section>

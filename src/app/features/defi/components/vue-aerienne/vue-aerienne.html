@@ -1,0 +1,159 @@
+
+<section class="vue-page">
+
+  <div class="vue-layout">
+
+    <!-- PARTIE GAUCHE : VUE AÉRIENNE -->
+
+    <div class="vue-main">
+
+      <header class="vue-header">
+        <h1>Voici ta ville</h1>
+
+        <p>
+          Vue aérienne de la ville créée,
+          avec le bilan de tes décisions.
+        </p>
+      </header>
+
+      <div class="vue-image">
+
+        <img
+          src="/images/defi/vue-aerienne.png"
+          alt="Vue aérienne de la ville égyptienne créée"
+          loading="eager">
+
+      </div>
+
+      <div class="vue-actions">
+
+        <button
+          type="button"
+          class="vue-retour"
+          (click)="retournerContraintes()">
+          ← Retour aux trois contraintes
+        </button>
+
+        <span class="site-indication">
+          Site choisi : {{ siteChoisi() }}
+        </span>
+
+      </div>
+
+    </div>
+
+    <!-- PARTIE DROITE : SCORE -->
+
+    <aside class="score-panel">
+
+      <div class="score-top">
+
+        <div
+          class="score-cercle"
+          [style.--score]="pourcentageTotal">
+
+          <div class="score-interieur">
+            <strong>{{ scoreTotal }}</strong>
+            <span>/ 100</span>
+          </div>
+
+        </div>
+
+        <div class="qualification">
+
+          <h2>Qualification de ta ville</h2>
+
+          <div class="qualification-grid">
+
+            <span
+              [class.active]="estQualificationActive('Cohérente')">
+              Cohérente
+            </span>
+
+            <span
+              [class.active]="estQualificationActive('Fonctionnelle')">
+              Fonctionnelle
+            </span>
+
+            <span
+              [class.active]="estQualificationActive('Vulnérable')">
+              Vulnérable
+            </span>
+
+            <span
+              [class.active]="estQualificationActive('Désorganisée')">
+              Désorganisée
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- DÉTAIL DES SCORES -->
+
+      <div class="score-categories">
+
+        @for (categorie of categories; track categorie.titre) {
+
+          <div class="score-categorie">
+
+            <div class="score-ligne">
+
+              <strong>{{ categorie.titre }}</strong>
+
+              <span>
+                {{ categorie.points }} /
+                {{ categorie.maximum }} pts
+              </span>
+
+            </div>
+
+            <div class="score-barre">
+
+              <div
+                class="score-remplissage"
+                [style.width.%]="progression(categorie)">
+              </div>
+
+            </div>
+
+          </div>
+
+        }
+
+        <div class="score-total">
+
+          <strong>Total</strong>
+
+          <strong>
+            {{ scoreTotal }} / 100 pts
+          </strong>
+
+        </div>
+
+      </div>
+
+      <div class="score-espace"></div>
+
+      <!-- BOUTON TOUJOURS ACTIF -->
+
+      <button
+        type="button"
+        class="score-suivant"
+        (click)="voirBilan()">
+        Voir le bilan des décisions
+      </button>
+
+    </aside>
+
+  </div>
+
+  <footer class="vue-footer">
+    Étape 5 : devenir urbaniste de l'Égypte antique
+    <span>|</span>
+    Projet de théorie et histoire de l'urbanisme
+  </footer>
+
+</section>

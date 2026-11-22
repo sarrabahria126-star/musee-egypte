@@ -255,17 +255,10 @@
 
           <button
             type="button"
-            class="primary-button full-width"
-            [disabled]="!toutesCouchesExplorees"
+            class="next-button"
             (click)="ouvrirFiches()">
             Suite : les trois fiches →
           </button>
-
-          @if (!toutesCouchesExplorees) {
-            <p class="help-text">
-              Explore les trois couches pour continuer.
-            </p>
-          }
 
         </aside>
 

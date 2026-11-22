@@ -1,0 +1,94 @@
+
+<section class="contraintes-page">
+
+  <div class="contraintes-grid">
+
+    @for (contrainte of contraintes; track contrainte.id) {
+
+      <article class="contrainte-card">
+
+        <header
+          class="contrainte-header"
+          [style.background]="contrainte.couleur">
+
+          <h2>{{ contrainte.titre }}</h2>
+
+        </header>
+
+        <div class="contrainte-content">
+
+          <!-- IMAGE DE LA CONTRAINTE -->
+
+          <div class="contrainte-image">
+
+            <img
+              [src]="contrainte.image"
+              [alt]="contrainte.imageDescription"
+              loading="lazy">
+
+          </div>
+
+          <!-- OBJECTIF -->
+
+          <p class="contrainte-objectif">
+            {{ contrainte.objectif }}
+          </p>
+
+          <!-- TABLEAU D'INFORMATIONS -->
+
+          <div class="contrainte-informations">
+
+            @for (
+                information of contrainte.informations;
+              track information.label
+              ) {
+
+              <div class="contrainte-ligne">
+
+                <strong>
+                  {{ information.label }}
+                </strong>
+
+                <span>
+                  {{ information.valeur }}
+                </span>
+
+              </div>
+
+            }
+
+          </div>
+
+        </div>
+
+      </article>
+
+    }
+
+  </div>
+
+  <div class="contraintes-actions">
+
+    <button
+      type="button"
+      class="contraintes-retour"
+      (click)="retournerCrue()">
+      ← Retour à la crue du Nil
+    </button>
+
+    <button
+      type="button"
+      class="contraintes-suivant"
+      (click)="continuer()">
+      Suite →
+    </button>
+
+  </div>
+
+  <footer class="contraintes-footer">
+    Étape 5 : devenir urbaniste de l'Égypte antique
+    <span>|</span>
+    Projet de théorie et histoire de l'urbanisme
+  </footer>
+
+</section>

@@ -1,0 +1,216 @@
+
+<section class="connexion-page">
+
+  <div class="connexion-layout">
+
+    <!-- PARTIE GAUCHE -->
+
+    <div class="connexion-main">
+
+      <header class="connexion-header">
+        <h1>Relie les quartiers entre eux</h1>
+
+        <p>
+          La ville doit former un ensemble cohérent et connecté,
+          pas une simple juxtaposition de fonctions.
+        </p>
+      </header>
+
+      <!-- OUTILS -->
+
+      <div class="connexion-outils">
+
+        <button
+          type="button"
+          [class.actif]="outil() === 'principale'"
+          (click)="choisirOutil('principale')">
+          Voie principale
+        </button>
+
+        <button
+          type="button"
+          [class.actif]="outil() === 'secondaire'"
+          (click)="choisirOutil('secondaire')">
+          Voie secondaire
+        </button>
+
+        <button
+          type="button"
+          [class.actif]="outil() === 'gomme'"
+          (click)="choisirOutil('gomme')">
+          Gomme
+        </button>
+
+      </div>
+
+      <!-- CARTE INTERACTIVE -->
+
+      <div class="connexion-carte">
+
+        <div class="zone-desert"></div>
+
+        <div class="zone-fertile">
+          <span>Terres fertiles</span>
+        </div>
+
+        <div class="zone-terrain">
+          <span>Terrain surélevé</span>
+        </div>
+
+        <div class="zone-inondable">
+          <span>Zone inondable</span>
+        </div>
+
+        <div class="zone-nil">
+          <span>LE NIL</span>
+        </div>
+
+        <!-- ROUTES TRACÉES -->
+
+        <svg
+          class="routes-svg"
+          viewBox="0 0 1000 600"
+          preserveAspectRatio="none"
+          aria-label="Voies reliant les quartiers">
+
+          @for (route of routes(); track $index) {
+
+            <line
+              class="route-hitbox"
+              [attr.x1]="position(route.depart).x * 10"
+              [attr.y1]="position(route.depart).y * 6"
+              [attr.x2]="position(route.arrivee).x * 10"
+              [attr.y2]="position(route.arrivee).y * 6"
+              (click)="supprimerRoute($index)">
+            </line>
+
+            <line
+              class="route-ligne"
+              [class.route-secondaire]="route.type === 'secondaire'"
+              [attr.x1]="position(route.depart).x * 10"
+              [attr.y1]="position(route.depart).y * 6"
+              [attr.x2]="position(route.arrivee).x * 10"
+              [attr.y2]="position(route.arrivee).y * 6">
+            </line>
+
+          }
+
+        </svg>
+
+        <!-- QUARTIERS -->
+
+        @for (quartier of quartiers; track quartier.id) {
+
+          <button
+            type="button"
+            class="quartier"
+            [class.quartier-selectionne]="quartierDepart() === quartier.id"
+            [style.left.%]="quartier.x"
+            [style.top.%]="quartier.y"
+            [style.width.%]="quartier.largeur"
+            [style.height.%]="quartier.hauteur"
+            [style.background]="quartier.couleur"
+            (click)="choisirQuartier(quartier.id)">
+
+            {{ quartier.nom }}
+
+          </button>
+
+        }
+
+      </div>
+
+      <p class="connexion-message">
+        {{ message() }}
+      </p>
+
+      <button
+        type="button"
+        class="retour-connexion"
+        (click)="retourAuxBesoins()">
+        ← Retour aux besoins des fonctions
+      </button>
+
+    </div>
+
+    <!-- PARTIE DROITE -->
+
+    <aside class="connexion-panneau">
+
+      <div class="relations-titre">
+        <strong>
+          Relations établies :
+          {{ relationsEtablies() }}/5
+        </strong>
+      </div>
+
+      <div class="relations-progression">
+        <div
+          class="relations-remplissage"
+          [style.width.%]="progression()">
+        </div>
+      </div>
+
+      <div class="relations-liste">
+
+        @for (relation of relations; track relation.numero) {
+
+          <div
+            class="relation-carte"
+            [class.relation-faite]="relationEstEtablie(relation)">
+
+            <span class="relation-numero">
+              {{ relation.numero }}
+            </span>
+
+            <div class="relation-details">
+
+              <strong>
+                {{ relation.titre }}
+              </strong>
+
+              <small>
+                {{ relation.description }}
+              </small>
+
+            </div>
+
+            <span class="relation-statut">
+              {{ relationEstEtablie(relation)
+              ? 'fait'
+              : 'à relier' }}
+            </span>
+
+          </div>
+
+        }
+
+      </div>
+
+      <div class="connexion-espace"></div>
+
+      <div class="connexion-conseil">
+        Des voies secondaires relient aussi les quartiers
+        pour la circulation des personnes et des marchandises.
+      </div>
+
+      <!-- BOUTON TOUJOURS ACTIF -->
+
+      <button
+        type="button"
+        class="connexion-suivant"
+        (click)="continuer()">
+        Suite : les événements →
+      </button>
+
+    </aside>
+
+  </div>
+
+  <footer class="connexion-footer">
+    Étape 5 : devenir urbaniste de l'Égypte antique
+    <span>|</span>
+    Projet de théorie et histoire de l'urbanisme
+  </footer>
+
+</section>

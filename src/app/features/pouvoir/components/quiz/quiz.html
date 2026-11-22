@@ -1,0 +1,181 @@
+<section class="quiz">
+  @switch (ecran()) {
+    @case ('questions') {
+      <div class="progression">
+        <strong>Question {{ index() + 1 }} sur {{ questions.length }}</strong>
+
+        <div class="points" aria-hidden="true">
+          @for (item of questions; track item.titre; let i = $index) {
+            <span
+              [class.actif]="i === index()"
+              [class.passe]="i < index()"
+            ></span>
+          }
+        </div>
+      </div>
+
+      <h1>{{ question().titre }}</h1>
+
+      <div class="choix">
+        @for (texte of question().choix; track texte) {
+          <button
+            type="button"
+            class="reponse"
+            [disabled]="selection() !== null"
+            [class.correcte]="selection() !== null && texte === question().bonne"
+            [class.incorrecte]="selection() === texte && texte !== question().bonne"
+            (click)="repondre(texte)"
+          >
+            <span>{{ texte }}</span>
+
+            @if (selection() === texte) {
+              <small>
+                {{ texte === question().bonne
+                ? 'Réponse choisie : correcte'
+                : 'Réponse choisie : incorrecte' }}
+              </small>
+            } @else if (selection() !== null && texte === question().bonne) {
+              <small>Bonne réponse</small>
+            }
+          </button>
+        }
+      </div>
+
+      <div
+        class="correction"
+        [class.visible]="selection() !== null"
+        aria-live="polite"
+      >
+        @if (selection() !== null) {
+          <strong [class.texte-erreur]="selection() !== question().bonne">
+            @if (selection() === question().bonne) {
+              Bonne réponse !
+            } @else {
+              La bonne réponse est « {{ question().bonne }} ».
+            }
+          </strong>
+          <p>{{ question().explication }}</p>
+        }
+      </div>
+
+      <div class="actions">
+        <button
+          type="button"
+          class="bouton primaire"
+          [disabled]="selection() === null"
+          (click)="avancer()"
+        >
+          {{ index() === questions.length - 1
+          ? 'Voir mon résultat'
+          : 'Question suivante' }}
+        </button>
+      </div>
+    }
+
+    @case ('resultat') {
+      <header class="resultat-header">
+        <h1>Le corrigé du quiz</h1>
+        <p>Ton résultat : <strong>{{ score() }} / {{ questions.length }}</strong></p>
+      </header>
+
+      <div class="grille-corrige">
+        @for (item of questions; track item.titre; let i = $index) {
+          <article class="fiche">
+            <div class="fiche-bandeau">
+              Question {{ i + 1 }} sur {{ questions.length }}
+            </div>
+
+            <div class="fiche-contenu">
+              <h2>{{ item.titre }}</h2>
+
+              <ul class="fiche-choix">
+                @for (texte of item.choix; track texte) {
+                  <li [class.bonne-reponse]="texte === item.bonne">
+                    @if (texte === item.bonne) {
+                      <span class="lecture-seule">Bonne réponse : </span>
+                    }
+                    {{ texte }}
+                  </li>
+                }
+              </ul>
+
+              <p class="fiche-explication">{{ item.explication }}</p>
+            </div>
+          </article>
+        }
+      </div>
+
+      <div class="actions actions-resultat">
+        <button type="button" class="bouton secondaire" (click)="retour.emit()">
+          ← Retour au tableau comparatif
+        </button>
+
+        <button type="button" class="bouton primaire" (click)="ouvrirConclusion()">
+          Suite : la conclusion →
+        </button>
+      </div>
+    }
+
+    @case ('conclusion') {
+      <section class="conclusion" aria-labelledby="titre-conclusion">
+        <header>
+          <p class="indice">Indice obtenu</p>
+          <h1 id="titre-conclusion">
+            Le pouvoir et la religion organisent l’espace
+          </h1>
+        </header>
+
+        <div class="synthese">
+          <p>
+            La ville des vivants est <strong>périssable et quotidienne</strong> :
+            brique, maisons, ateliers, marché. La ville des dieux et celle des
+            morts sont <strong>monumentales et faites pour durer</strong> :
+            pierre, roche, orientation vers le soleil, accès réservé.
+            Le pouvoir se lit dans la taille, le matériau, les axes,
+            les images et le contrôle de l’accès.
+          </p>
+        </div>
+
+        <div class="trois-villes">
+          <article class="ville vivants">
+            <h2>Les vivants</h2>
+            <p>brique, quotidien, périssable</p>
+          </article>
+
+          <article class="ville dieux">
+            <h2>Les dieux</h2>
+            <p>pierre, culte, durée</p>
+          </article>
+
+          <article class="ville morts">
+            <h2>Les morts</h2>
+            <p>roche, éternité</p>
+          </article>
+        </div>
+
+        <div class="bilan">
+          <blockquote>
+            « Chaque matériau, chaque orientation et chaque accès disent
+            quelque chose du pouvoir. À toi maintenant d’utiliser ces règles
+            pour fonder ta propre ville. »
+          </blockquote>
+
+          <div class="score-final">
+            <span>Score du quiz</span>
+            <strong>{{ score() }} / {{ questions.length }}</strong>
+          </div>
+        </div>
+
+        <div class="actions-conclusion">
+          <a class="bouton primaire defi" [routerLink]="routeDefi">
+            Passer au défi : devenir urbaniste
+          </a>
+
+          <button type="button" class="bouton secondaire" (click)="revoirEtape()">
+            Revoir l’étape
+          </button>
+        </div>
+      </section>
+    }
+  }
+</section>

@@ -1,188 +1,91 @@
-<section class="comparateur-page">
+@if (afficheCorrige()) {
+  <app-corrige
+    (retour)="revenirAuJeu()"
+    (suivant)="suivant.emit()"
+  />
+} @else {
+  <section class="comparateur" aria-labelledby="titre-comparateur">
+    <header>
+      <h1 id="titre-comparateur">
+        À quelle ville appartient chaque élément ?
+      </h1>
 
-  <div class="comparateur-container">
-
-    <header class="comparateur-header">
-
-      <button
-        type="button"
-        class="retour-link"
-        (click)="revenir()">
-        ← Retour aux fêtes
-      </button>
-
-      <h1>À quelle ville appartient chaque élément ?</h1>
-
-      <div class="header-details">
+      <div class="consigne">
         <p>Glisse chaque carte dans la bonne colonne.</p>
-
-        <strong>
-          Cartes placées : {{ nombrePlacees() }}/9
-        </strong>
+        <strong>Cartes placées : {{ nombrePlacees() }}/{{ cartes.length }}</strong>
       </div>
-
     </header>
 
-    <!-- TROIS COLONNES -->
-
     <div class="colonnes">
-
       @for (colonne of colonnes; track colonne.id) {
-
-        <div
+        <button
+          type="button"
           class="colonne"
-          [class.vivants]="colonne.id === 'vivants'"
-          [class.dieux]="colonne.id === 'dieux'"
-          [class.morts]="colonne.id === 'morts'"
-          [class.cible-active]="carteSelectionnee() !== null"
-          (dragover)="autoriserDepot($event)"
-          (drop)="deposerCarte($event, colonne.id)">
+          [attr.data-ville]="colonne.id"
+          [attr.aria-label]="'Placer la carte dans la colonne ' + colonne.titre"
+          (dragover)="$event.preventDefault()"
+          (drop)="deposer($event, colonne.id)"
+          (click)="placer(colonne.id)"
+        >
+          <strong class="titre-colonne">{{ colonne.titre }}</strong>
 
-          <button
-            type="button"
-            class="colonne-titre"
-            (click)="choisirColonne(colonne.id)">
-            {{ colonne.titre }}
-          </button>
-
-          <div class="cartes-placees">
-
-            @for (
-                carte of cartesDeColonne(colonne.id);
-              track carte.id
-              ) {
-
-              <div class="carte-placee">
-                {{ carte.texte }}
-              </div>
-
+          @for (carte of cartes; track carte.id) {
+            @if (carte.ville === colonne.id && cartesPlacees().has(carte.id)) {
+              <span class="carte-placee">{{ carte.texte }}</span>
             }
-
-          </div>
-
-          @if (carteSelectionnee() !== null) {
-
-            <button
-              type="button"
-              class="deposer-mobile"
-              (click)="choisirColonne(colonne.id)">
-              Placer ici
-            </button>
-
           }
-
-        </div>
-
+        </button>
       }
-
     </div>
 
-    <!-- CARTES À PLACER -->
-
-    <section class="cartes-section">
-
+    @if (restantes().length > 0) {
       <h2>Cartes à placer</h2>
 
-      <div class="cartes-grille">
-
-        @for (carte of cartesDisponibles(); track carte.id) {
-
+      <div class="cartes-restantes">
+        @for (carte of restantes(); track carte.id) {
           <button
             type="button"
-            class="carte-deplacable"
-            [class.selectionnee]="carteSelectionnee() === carte.id"
-            [class.en-glissement]="carteEnGlissement() === carte.id"
+            class="carte"
             draggable="true"
-            (click)="selectionnerCarte(carte.id)"
-            (dragstart)="commencerGlissement($event, carte.id)"
-            (dragend)="terminerGlissement()">
-
-            <span>{{ carte.texte }}</span>
-
-            @if (carte.erreurs >= 2) {
-
-              <small class="indice-carte">
-                Bonne colonne : {{ afficherIndice(carte) }}
-              </small>
-
-            } @else if (carteSelectionnee() === carte.id) {
-
-              <small class="selection-indication">
-                Carte sélectionnée
-              </small>
-
-            }
-
+            [class.selectionnee]="selection() === carte.id"
+            [attr.aria-pressed]="selection() === carte.id"
+            (dragstart)="commencerGlisser($event, carte)"
+            (click)="selectionner(carte)"
+          >
+            {{ carte.texte }}
           </button>
-
         }
-
       </div>
+    }
 
-    </section>
-
-    <!-- MESSAGE DE CORRECTION -->
-
-    <div class="comparateur-bottom">
-
-      <div
-        class="message-correction"
-        [class.succes]="typeMessage() === 'succes'"
-        [class.erreur]="typeMessage() === 'erreur'"
-        [class.information]="typeMessage() === 'information'"
-        role="status"
-        aria-live="polite">
-
+    <div class="informations">
+      <p class="message" [class.erreur]="erreur()" role="status">
         {{ message() }}
+      </p>
 
-      </div>
-
-      <aside class="aide-comparateur">
-
-        <strong>Comment jouer ?</strong>
+      <aside>
+        <h2>Comment jouer ?</h2>
 
         <p>
-          Glisse une carte vers la bonne colonne.
-          Sur mobile, sélectionne une carte puis touche
-          la colonne correspondante.
+          Glisse une carte vers la bonne colonne. Sur mobile,
+          sélectionne une carte puis touche la colonne correspondante.
         </p>
 
         <p>
           Attention : Deir el-Médineh se trouve sur la rive ouest,
-          mais c'est un village habité par des vivants.
+          mais c’est un village habité par des vivants.
         </p>
-
       </aside>
-
     </div>
 
-    <!-- NAVIGATION -->
-
-    <div class="comparateur-navigation">
-
+    <div class="actions">
       <button
         type="button"
-        class="bouton-retour"
-        (click)="revenir()">
-        ← Les fêtes
-      </button>
-
-      <button
-        type="button"
-        class="bouton-suivant"
-        [disabled]="!termine()"
-        (click)="continuer()">
+        class="bouton-suite"
+        (click)="ouvrirCorrige()"
+      >
         Suite : le tableau comparatif →
       </button>
-
     </div>
-
-    <footer class="comparateur-footer">
-      Étape 4 : le pouvoir et l'architecture
-      <span>|</span>
-      Projet de théorie et histoire de l'urbanisme
-    </footer>
-
-  </div>
-
-</section>
+  </section>
+}

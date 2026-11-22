@@ -92,9 +92,7 @@ export class Pouvoir {
   }
 
   ouvrirFiches(): void {
-    if (this.toutesCouchesExplorees) {
-      this.allerVers('fiches');
-    }
+    this.allerVers('fiches');
   }
 
   ouvrirTemple(): void {

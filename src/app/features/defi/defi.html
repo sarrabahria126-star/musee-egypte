@@ -1,1 +1,752 @@
-<p>defi works!</p>
+
+<!-- ==================================== -->
+<!-- ÉCRAN 5.0 : INTRODUCTION -->
+<!-- ==================================== -->
+
+@if (ecran() === 'introduction') {
+  <section class="defi-page">
+    <div class="defi-container">
+      <div class="intro-layout">
+
+        <div class="intro-left">
+          <span class="step-label">ÉTAPE 5 SUR 5</span>
+
+          <h1>
+            Devenir urbaniste de<br>
+            l’Égypte antique
+          </h1>
+
+          <p class="intro-description">
+            « Le visiteur devient urbaniste : il doit
+            fonder une nouvelle ville dans le territoire
+            égyptien. Comment implanter et organiser
+            une ville en conciliant les ressources naturelles,
+            les contraintes environnementales et les
+            fonctions urbaines ? »
+          </p>
+
+          <button
+            type="button"
+            class="orange-button intro-button"
+            (click)="commencerDefi()">
+            Commencer le défi
+          </button>
+
+          <p class="intro-duration">
+            Durée du défi : 10 à 15 minutes (à valider)
+          </p>
+
+          <div class="intro-cards">
+            <div class="intro-card green">
+              <strong>Observer le territoire</strong>
+              <small>le Nil, les terres, les risques</small>
+            </div>
+
+            <div class="intro-card yellow">
+              <strong>Implanter six fonctions</strong>
+              <small>habitat, temple, port...</small>
+            </div>
+
+            <div class="intro-card blue">
+              <strong>Faire face aux contraintes</strong>
+              <small>crue, sécheresse, croissance</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="intro-right">
+          <img
+            src="/images/defi/img.png"
+            alt="Ville égyptienne au bord du Nil">
+
+          <div class="intro-image-caption">
+            Reconstitution d’une ville égyptienne
+            installée au bord du Nil
+          </div>
+        </div>
+
+      </div>
+
+      <footer class="defi-footer">
+        Étape 5 : devenir urbaniste de l’Égypte antique
+        <span>|</span>
+        Projet de théorie et histoire de l’urbanisme
+      </footer>
+    </div>
+  </section>
+}
+
+<!-- ==================================== -->
+<!-- ÉCRAN 5.1 : OBSERVER LE TERRITOIRE -->
+<!-- ==================================== -->
+
+@if (ecran() === 'territoire') {
+  <section class="defi-page">
+    <div class="defi-container">
+      <div class="territory-layout">
+
+        <div class="territory-main">
+          <header class="territory-heading">
+            <h1>Observe le territoire</h1>
+
+            <div class="territory-subheading">
+              <p>
+                Clique sur chaque élément de la carte
+                pour découvrir ses caractéristiques.
+              </p>
+
+              <strong>
+                Éléments vus : {{ nombreElementsVus }}/5
+              </strong>
+            </div>
+          </header>
+
+          <div class="territory-tabs">
+            <button
+              type="button"
+              class="tab-nil"
+              [class.active]="elementSelectionne() === 'nil'"
+              (click)="choisirElement('nil')">
+              Le Nil
+            </button>
+
+            <button
+              type="button"
+              class="tab-fertiles"
+              [class.active]="elementSelectionne() === 'fertiles'"
+              (click)="choisirElement('fertiles')">
+              Les terres fertiles
+            </button>
+
+            <button
+              type="button"
+              class="tab-desert"
+              [class.active]="elementSelectionne() === 'desert'"
+              (click)="choisirElement('desert')">
+              Le désert
+            </button>
+
+            <button
+              type="button"
+              class="tab-inondables"
+              [class.active]="elementSelectionne() === 'inondables'"
+              (click)="choisirElement('inondables')">
+              Les zones inondables
+            </button>
+
+            <button
+              type="button"
+              class="tab-sureleves"
+              [class.active]="elementSelectionne() === 'sureleves'"
+              (click)="choisirElement('sureleves')">
+              Les terrains surélevés
+            </button>
+
+            <button
+              type="button"
+              class="show-all"
+              (click)="toutAfficher()">
+              Tout afficher
+            </button>
+          </div>
+
+          <div class="egypt-map">
+            <button
+              type="button"
+              class="map-band desert"
+              [class.dimmed]="!elementVisible('desert')"
+              (click)="choisirElement('desert')">
+              <span>Désert</span>
+            </button>
+
+            <button
+              type="button"
+              class="map-band raised"
+              [class.dimmed]="!elementVisible('sureleves')"
+              (click)="choisirElement('sureleves')">
+              <span>Terrains surélevés</span>
+            </button>
+
+            <button
+              type="button"
+              class="map-band fertile"
+              [class.dimmed]="!elementVisible('fertiles')"
+              (click)="choisirElement('fertiles')">
+              <span>Terres fertiles</span>
+            </button>
+
+            <button
+              type="button"
+              class="map-band flooded"
+              [class.dimmed]="!elementVisible('inondables')"
+              (click)="choisirElement('inondables')">
+              <span>Zones inondables</span>
+            </button>
+
+            <button
+              type="button"
+              class="map-band river"
+              [class.dimmed]="!elementVisible('nil')"
+              (click)="choisirElement('nil')">
+              <span>Le Nil</span>
+            </button>
+
+            <button
+              type="button"
+              class="map-band flooded"
+              [class.dimmed]="!elementVisible('inondables')"
+              (click)="choisirElement('inondables')"
+              aria-label="Zone inondable">
+            </button>
+
+            <button
+              type="button"
+              class="map-band fertile"
+              [class.dimmed]="!elementVisible('fertiles')"
+              (click)="choisirElement('fertiles')"
+              aria-label="Terres fertiles">
+            </button>
+
+            <button
+              type="button"
+              class="map-band raised"
+              [class.dimmed]="!elementVisible('sureleves')"
+              (click)="choisirElement('sureleves')"
+              aria-label="Terrains surélevés">
+            </button>
+
+            <button
+              type="button"
+              class="map-band desert"
+              [class.dimmed]="!elementVisible('desert')"
+              (click)="choisirElement('desert')"
+              aria-label="Désert">
+            </button>
+
+            <div class="map-north">N │</div>
+          </div>
+
+          <div class="map-legend">
+            <span><i class="legend-nil"></i> Le Nil</span>
+            <span><i class="legend-flood"></i> Zones inondables</span>
+            <span><i class="legend-fertile"></i> Terres fertiles</span>
+            <span><i class="legend-raised"></i> Terrains surélevés</span>
+            <span><i class="legend-desert"></i> Désert</span>
+          </div>
+
+          <p class="map-caption">
+            Schéma non à l’échelle, positions approximatives.
+            Territoire de l’Égypte antique simplifié.
+          </p>
+        </div>
+
+        <aside class="territory-info">
+          <div class="territory-image">
+            <img
+              [src]="elementActif.image"
+              [alt]="elementActif.titre">
+          </div>
+
+          <h2>{{ elementActif.titre }}</h2>
+
+          <p class="territory-description">
+            {{ elementActif.description }}
+          </p>
+
+          <div class="territory-facts">
+            @for (info of elementActif.caracteristiques; track info.label) {
+              <div class="territory-fact">
+                <strong>{{ info.label }}</strong>
+                <span>{{ info.valeur }}</span>
+              </div>
+            }
+          </div>
+
+          <button
+            type="button"
+            class="orange-button territory-next"
+            (click)="ouvrirImplantation()">
+            Suite : implanter la ville →
+          </button>
+        </aside>
+
+      </div>
+
+      <footer class="defi-footer">
+        Étape 5 : devenir urbaniste de l’Égypte antique
+        <span>|</span>
+        Projet de théorie et histoire de l’urbanisme
+      </footer>
+    </div>
+  </section>
+}
+
+<!-- ==================================== -->
+<!-- ÉCRAN 5.2 : CHOIX DU SITE -->
+<!-- ==================================== -->
+
+@if (ecran() === 'implantation') {
+  <section class="defi-page">
+    <div class="defi-container">
+      <div class="site-layout">
+
+        <div class="site-main">
+          <header class="site-heading">
+            <h1>Où fonder ta ville ?</h1>
+            <p>
+              Compare les trois sites proposés,
+              puis choisis-en un.
+            </p>
+          </header>
+
+          <div class="site-map">
+            <div class="site-zone site-desert-left">
+              <span class="site-vertical-label">Désert</span>
+            </div>
+
+            <div class="site-zone site-raised-left">
+              <span class="site-vertical-label">
+                Terrains surélevés
+              </span>
+            </div>
+
+            <div class="site-zone site-fertile-left">
+              <span class="site-vertical-label">
+                Terres fertiles
+              </span>
+            </div>
+
+            <div class="site-zone site-flood-left">
+              <span class="site-vertical-label">
+                Zones inondables
+              </span>
+            </div>
+
+            <div class="site-zone site-river">
+              <span class="site-vertical-label">Le Nil</span>
+            </div>
+
+            <div class="site-zone site-flood-right"></div>
+            <div class="site-zone site-fertile-right"></div>
+            <div class="site-zone site-raised-right"></div>
+            <div class="site-zone site-desert-right"></div>
+
+            <button
+              type="button"
+              class="site-marker marker-a"
+              [class.selected]="siteSelectionne() === 'A'"
+              (click)="choisirSite('A')">
+              <span class="marker-circle">A</span>
+              <span class="marker-label">Site A : bord du Nil</span>
+            </button>
+
+            <button
+              type="button"
+              class="site-marker marker-b"
+              [class.selected]="siteSelectionne() === 'B'"
+              (click)="choisirSite('B')">
+              <span class="marker-circle">B</span>
+              <span class="marker-label">
+                Site B : terrain surélevé
+              </span>
+            </button>
+
+            <button
+              type="button"
+              class="site-marker marker-c"
+              [class.selected]="siteSelectionne() === 'C'"
+              (click)="choisirSite('C')">
+              <span class="marker-circle">C</span>
+              <span class="marker-label">Site C : désert</span>
+            </button>
+
+            <div class="site-north">
+              N <span>│</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="site-info">
+          <div class="site-selector">
+            <button
+              type="button"
+              [class.active]="siteSelectionne() === 'A'"
+              (click)="choisirSite('A')">
+              Site A
+            </button>
+
+            <button
+              type="button"
+              [class.active]="siteSelectionne() === 'B'"
+              (click)="choisirSite('B')">
+              Site B
+            </button>
+
+            <button
+              type="button"
+              [class.active]="siteSelectionne() === 'C'"
+              (click)="choisirSite('C')">
+              Site C
+            </button>
+          </div>
+
+          <div class="site-title-row">
+            <h2>{{ siteActif.nom }}</h2>
+            <span class="site-type">
+              {{ siteActif.type }}
+            </span>
+          </div>
+
+          <div class="site-facts">
+            <div class="site-fact">
+              <strong>Proximité du Nil</strong>
+              <span>{{ siteActif.proximite }}</span>
+            </div>
+
+            <div class="site-fact">
+              <strong>Terres fertiles</strong>
+              <span>{{ siteActif.terres }}</span>
+            </div>
+
+            <div class="site-fact">
+              <strong>Risque de crue</strong>
+              <span>{{ siteActif.risque }}</span>
+            </div>
+
+            <div class="site-fact">
+              <strong>Ressources</strong>
+              <span>{{ siteActif.ressources }}</span>
+            </div>
+
+            <div class="site-fact">
+              <strong>Désert</strong>
+              <span>{{ siteActif.desert }}</span>
+            </div>
+          </div>
+
+          <div class="site-decision">
+            <strong>Décision :</strong>
+            {{ siteActif.decision }}
+          </div>
+
+          <div class="site-actions">
+            <button
+              type="button"
+              class="orange-button"
+              (click)="fonderVille()">
+              Fonder la ville ici
+            </button>
+
+            <button
+              type="button"
+              class="outline-button"
+              (click)="comparerAutreSite()">
+              Comparer un autre site
+            </button>
+          </div>
+        </aside>
+
+      </div>
+
+      <footer class="defi-footer">
+        Étape 5 : devenir urbaniste de l’Égypte antique
+        <span>|</span>
+        Projet de théorie et histoire de l’urbanisme
+      </footer>
+    </div>
+  </section>
+}
+
+<!-- ==================================== -->
+<!-- ÉCRAN 5.3 : IMPLANTER LES FONCTIONS -->
+<!-- ==================================== -->
+
+@if (ecran() === 'organisation') {
+  <section class="defi-page">
+    <div class="defi-container">
+      <div class="organisation-layout">
+
+        <div class="organisation-main">
+          <header class="organisation-header">
+            <h1>Implante les six fonctions</h1>
+            <p>
+              Glisse chaque fonction sur le plan de ta ville.
+              Chaque fonction a des besoins précis.
+            </p>
+          </header>
+
+          <div
+            class="organisation-map"
+            (click)="placerSurCarte($event)"
+            (dragover)="autoriserDepot($event)"
+            (drop)="deposerSurCarte($event)">
+
+            <div class="organisation-desert"></div>
+
+            <div class="organisation-fertile">
+              <span>Terres fertiles</span>
+            </div>
+
+            <div class="organisation-raised">
+              <span>Terrain surélevé</span>
+            </div>
+
+            <div class="organisation-flood">
+              <span>Zone inondable</span>
+            </div>
+
+            <div class="organisation-river">
+              <span>LE NIL</span>
+            </div>
+
+            @for (fonction of fonctions(); track fonction.id) {
+              @if (fonction.placee) {
+                <div
+                  class="fonction-sur-carte"
+                  [class.fonction-active]="fonctionActive() === fonction.id"
+                  [style.left.%]="fonction.x"
+                  [style.top.%]="fonction.y"
+                  [style.background]="fonction.couleur"
+                  [attr.draggable]="true"
+                  (dragstart)="debutGlisser($event, fonction.id)"
+                  (click)="$event.stopPropagation(); selectionnerFonction(fonction.id)">
+                  {{ fonction.titre }}
+                </div>
+              }
+            }
+          </div>
+
+          <div class="organisation-bottom">
+            <button
+              type="button"
+              class="outline-button"
+              (click)="retourImplantation()">
+              ← Retour au choix du site
+            </button>
+
+            <span>
+              Site choisi :
+              <strong>{{ siteActif.nom }}</strong>
+            </span>
+          </div>
+        </div>
+
+        <aside class="organisation-info">
+          <div class="organisation-progress">
+            <div class="progress-text">
+              <strong>Fonctions à placer</strong>
+              <span>
+                Placées : {{ nombreFonctionsPlacees }}/6
+              </span>
+            </div>
+
+            <div class="progress-track">
+              <div
+                class="progress-fill"
+                [style.width.%]="progressionFonctions">
+              </div>
+            </div>
+          </div>
+
+          <div class="fonctions-list">
+            @for (fonction of fonctions(); track fonction.id) {
+              <button
+                type="button"
+                class="fonction-card"
+                [class.placee]="fonction.placee"
+                [class.en-cours]="fonctionActive() === fonction.id"
+                [attr.draggable]="true"
+                (dragstart)="debutGlisser($event, fonction.id)"
+                (click)="selectionnerFonction(fonction.id)">
+
+                <span
+                  class="fonction-color"
+                  [style.background]="fonction.couleur">
+                </span>
+
+                <span class="fonction-details">
+                  <strong>{{ fonction.titre }}</strong>
+                  <small>{{ fonction.sousTitre }}</small>
+                </span>
+
+                <span class="fonction-status">
+                  @if (fonctionActive() === fonction.id) {
+                    en cours
+                  } @else if (fonction.placee) {
+                    placé
+                  } @else {
+                    à placer
+                  }
+                </span>
+              </button>
+            }
+          </div>
+
+          <div class="organisation-spacer"></div>
+
+          <div
+            class="placement-message"
+            [class.success]="placementValide()">
+            <strong>
+              {{ placementValide() ? 'Bien placé !' : 'À toi de jouer !' }}
+            </strong>
+
+            <p>{{ messagePlacement() }}</p>
+          </div>
+
+          <button
+            type="button"
+            class="orange-button organisation-next"
+            (click)="continuerOrganisation()">
+            Suite : les besoins des fonctions →
+          </button>
+        </aside>
+
+      </div>
+
+      <footer class="defi-footer">
+        Étape 5 : devenir urbaniste de l’Égypte antique
+        <span>|</span>
+        Projet de théorie et histoire de l’urbanisme
+      </footer>
+    </div>
+  </section>
+}
+
+<!-- ==================================== -->
+<!-- ÉCRAN 5.4 : BESOINS DES FONCTIONS -->
+<!-- ==================================== -->
+
+@if (ecran() === 'besoins') {
+  <app-besoins-fonctions
+    (retour)="retourOrganisation()"
+    (suivant)="ouvrirConnexion()">
+  </app-besoins-fonctions>
+}
+
+<!-- ==================================== -->
+<!-- ÉCRAN 5.5 : CONNECTER LES QUARTIERS -->
+<!-- ==================================== -->
+
+@if (ecran() === 'connexion') {
+  <app-connecter-quartiers
+    (retour)="ouvrirBesoins()"
+    (suivant)="ouvrirCrue()">
+  </app-connecter-quartiers>
+}
+
+<!-- ==================================== -->
+<!-- ÉCRAN 5.6 : CRUE DU NIL -->
+<!-- ==================================== -->
+
+@if (ecran() === 'crue') {
+  <app-crue-nil
+    (retour)="retourConnexion()"
+    (suivant)="ouvrirContraintes()">
+  </app-crue-nil>
+}
+
+<!-- ==================================== -->
+<!-- ÉCRAN 5.7 : LES TROIS CONTRAINTES -->
+<!-- ==================================== -->
+
+@if (ecran() === 'contraintes') {
+  <app-trois-contraintes
+    (retour)="retourCrue()"
+    (suivant)="ouvrirVueAerienne()">
+  </app-trois-contraintes>
+}
+
+<!-- ==================================== -->
+<!-- ÉCRAN 5.8 : VUE AÉRIENNE ET SCORE -->
+<!-- ==================================== -->
+
+@if (ecran() === 'vue-aerienne') {
+  <app-vue-aerienne
+    [siteChoisi]="siteActif.nom"
+    [scoreTerritoire]="scoreTerritoire"
+    [scoreFonctions]="scoreFonctions"
+    [scoreRelations]="scoreRelations"
+    [scoreEvenements]="scoreEvenements"
+    [scoreOrganisation]="scoreOrganisation"
+    (retour)="ouvrirContraintes()"
+    (suivant)="ouvrirBilan()">
+  </app-vue-aerienne>
+}
+
+<!-- ==================================== -->
+<!-- ÉCRAN 5.9 : BILAN DES DÉCISIONS -->
+<!-- ==================================== -->
+
+@if (ecran() === 'bilan') {
+  <app-bilan-decisions
+    [siteChoisi]="siteActif.nom"
+    [portPlace]="fonctionEstPlacee('port')"
+    [score]="scoreTotal"
+    (rejouer)="rejouerDefi()"
+    (terminer)="terminerDefi()">
+  </app-bilan-decisions>
+}
+
+<!-- ==================================== -->
+<!-- ÉCRAN 5.10 : CONCLUSION ET SYNTHÈSE -->
+<!-- ==================================== -->
+
+@if (ecran() === 'conclusion') {
+  <app-conclusion-synthese
+    [score]="scoreTotal"
+    (revoir)="revoirEtape()"
+    (terminer)="terminerParcours()">
+  </app-conclusion-synthese>
+}
+
+<!-- ==================================== -->
+<!-- FIN DU PARCOURS -->
+<!-- ==================================== -->
+
+@if (ecran() === 'termine') {
+  <section class="defi-page">
+    <div class="defi-container">
+
+      <div class="next-screen">
+        <span class="step-label">
+          PARCOURS TERMINÉ
+        </span>
+
+        <h1>Bravo, tu as terminé le parcours !</h1>
+
+        <p>
+          Tu as découvert comment le Nil,
+          les ressources naturelles, les fonctions
+          urbaines et les contraintes influencent
+          l'organisation des villes de l'Égypte antique.
+        </p>
+
+        <h2>
+          Ton score final : {{ scoreTotal }} / 100
+        </h2>
+
+        <button
+          type="button"
+          class="orange-button"
+          (click)="rejouerDefi()">
+          Rejouer le défi
+        </button>
+
+        <button
+          type="button"
+          class="outline-button"
+          (click)="retourConclusion()">
+          ← Retour à la conclusion
+        </button>
+      </div>
+
+      <footer class="defi-footer">
+        Étape 5 : devenir urbaniste de l’Égypte antique
+        <span>|</span>
+        Projet de théorie et histoire de l’urbanisme
+      </footer>
+
+    </div>
+  </section>
+}

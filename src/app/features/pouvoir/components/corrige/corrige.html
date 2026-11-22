@@ -1,0 +1,55 @@
+@if (quizOuvert()) {
+  <app-quiz (retour)="revenirAuTableau()" />
+} @else {
+  <section class="corrige-page">
+    <div class="corrige-container">
+      <header class="corrige-header">
+        <button
+          type="button"
+          class="back-link"
+          (click)="retournerComparateur()"
+        >
+          ← Retour au comparateur
+        </button>
+
+        <h1>Ce que les trois villes ont de différent</h1>
+      </header>
+
+      <div class="table-wrapper">
+        <table class="comparaison-table">
+          <thead>
+          <tr>
+            <th scope="col" class="col-critere">Critère</th>
+            <th scope="col" class="col-vivants">Ville des vivants</th>
+            <th scope="col" class="col-dieux">Complexes religieux</th>
+            <th scope="col" class="col-morts">Ville des morts</th>
+          </tr>
+          </thead>
+
+          <tbody>
+            @for (ligne of lignes; track ligne.critere) {
+              <tr>
+                <th scope="row" class="cell-critere">
+                  {{ ligne.critere }}
+                </th>
+                <td class="cell-vivants">{{ ligne.vivants }}</td>
+                <td class="cell-dieux">{{ ligne.dieux }}</td>
+                <td class="cell-morts">{{ ligne.morts }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="corrige-actions">
+        <button
+          type="button"
+          class="quiz-button"
+          (click)="ouvrirQuiz()"
+        >
+          Suite : le quiz →
+        </button>
+      </div>
+    </div>
+  </section>
+}

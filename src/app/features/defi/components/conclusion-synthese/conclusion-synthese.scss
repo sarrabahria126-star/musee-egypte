@@ -1,0 +1,305 @@
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.conclusion-page {
+  width: 100%;
+  min-height: calc(100vh - 90px);
+  display: flex;
+  flex-direction: column;
+  padding: 30px 32px 15px;
+  background: #fcf8ef;
+  color: #291e13;
+  font-family: Arial, sans-serif;
+}
+
+/* TITRE */
+
+.conclusion-header {
+  margin-bottom: 34px;
+}
+
+.conclusion-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 27px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  background: #f5a02a;
+  color: #261a0e;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.conclusion-header h1 {
+  margin: 27px 0 13px;
+  font-family: Georgia, serif;
+  font-size: clamp(29px, 2.8vw, 42px);
+  line-height: 1.2;
+}
+
+.conclusion-header p {
+  max-width: 1300px;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* SIX ÉTAPES */
+
+.conclusion-etapes {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 13px;
+  margin-bottom: 30px;
+}
+
+.etape-wrapper {
+  position: relative;
+  min-width: 0;
+}
+
+.etape-card {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 120px;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 10px 15px;
+  border: 1px solid #a87a4d;
+  border-radius: 11px;
+  text-align: center;
+}
+
+.etape-numero {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  width: 31px;
+  height: 31px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #291e13;
+  border-radius: 50%;
+  background: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.etape-contenu {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 10px;
+}
+
+.etape-contenu strong {
+  font-size: 15px;
+}
+
+.etape-contenu span {
+  font-size: 12px;
+}
+
+.etape-fleche {
+  position: absolute;
+  top: 50%;
+  right: -14px;
+  z-index: 2;
+  color: #9c6e3b;
+  font-size: 18px;
+  font-weight: 700;
+  transform: translateY(-50%);
+}
+
+/* CITATION */
+
+.conclusion-citation {
+  min-height: 105px;
+  margin: 0 0 23px;
+  padding: 20px 24px;
+  border: 1px solid #e1cbaa;
+  border-radius: 11px;
+  background: #f7eddd;
+  font-family: Georgia, serif;
+  font-size: clamp(16px, 1.6vw, 21px);
+  font-style: italic;
+  line-height: 1.6;
+}
+
+/* SCORE */
+
+.conclusion-resultat {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.conclusion-score {
+  width: 390px;
+  min-height: 110px;
+  padding: 21px 23px;
+  border: 1px solid #e1cbaa;
+  border-radius: 11px;
+  background: #ffffff;
+}
+
+.score-label {
+  display: block;
+  margin-bottom: 15px;
+  color: #a58261;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.score-contenu {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+}
+
+.score-valeur {
+  font-family: Georgia, serif;
+  font-size: 38px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.score-qualification {
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: #edcd59;
+  color: #25190d;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* BOUTONS */
+
+.conclusion-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding-bottom: 8px;
+}
+
+.bouton-revoir,
+.bouton-terminer {
+  min-height: 45px;
+  padding: 11px 25px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.bouton-revoir {
+  min-width: 185px;
+  border: 2px solid #332418;
+  background: #ffffff;
+  color: #291e13;
+}
+
+.bouton-revoir:hover {
+  background: #f4e7d2;
+}
+
+.bouton-terminer {
+  min-width: 300px;
+  border: 2px solid #f5a02a;
+  background: #f5a02a;
+  color: #24190d;
+}
+
+.bouton-terminer:hover {
+  background: #e9921b;
+}
+
+/* NOTE ET FOOTER */
+
+.conclusion-note {
+  margin: auto 0 40px;
+  padding-top: 55px;
+  color: #aa8666;
+  font-size: 12px;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.conclusion-footer {
+  color: #a48261;
+  font-size: 11px;
+}
+
+.conclusion-footer span {
+  margin: 0 9px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1100px) {
+  .conclusion-etapes {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .etape-fleche {
+    display: none;
+  }
+
+  .conclusion-resultat {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .conclusion-actions {
+    width: 100%;
+  }
+}
+
+@media (max-width: 650px) {
+  .conclusion-page {
+    padding: 20px 14px 15px;
+  }
+
+  .conclusion-header {
+    margin-bottom: 22px;
+  }
+
+  .conclusion-etapes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .etape-card {
+    min-height: 110px;
+  }
+
+  .conclusion-score {
+    width: 100%;
+  }
+
+  .conclusion-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .bouton-revoir,
+  .bouton-terminer {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .conclusion-note {
+    padding-top: 30px;
+    margin-bottom: 30px;
+  }
+}

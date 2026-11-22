@@ -1,0 +1,173 @@
+
+<section class="bilan-page">
+
+  <header class="bilan-header">
+    <h1>Le bilan de tes décisions</h1>
+
+    <p>
+      Ce qui fonctionne, ce qui pose problème
+      et comment faire mieux.
+    </p>
+  </header>
+
+  <div class="bilan-colonnes">
+
+    <!-- LES BONNES DÉCISIONS -->
+
+    <article class="bilan-carte bonnes">
+
+      <div class="bilan-carte-titre">
+        <h2>Les bonnes décisions</h2>
+      </div>
+
+      <div class="bilan-liste">
+
+        @for (decision of bonnesDecisions; track decision.id) {
+
+          <button
+            type="button"
+            class="bilan-element"
+            [class.selectionne]="estSelectionnee(decision.id)"
+            (click)="selectionnerDecision(decision.id)">
+
+            <span class="bilan-icone succes">
+              ✓
+            </span>
+
+            <span class="bilan-texte">
+
+              <strong>{{ decision.titre }}</strong>
+
+              <small>{{ decision.description }}</small>
+
+              @if (estSelectionnee(decision.id)) {
+                <span class="bilan-zone">
+                  Emplacement concerné :
+                  {{ decision.zone }}
+                </span>
+              }
+
+            </span>
+
+          </button>
+
+        }
+
+      </div>
+
+    </article>
+
+    <!-- LES ERREURS -->
+
+    <article class="bilan-carte erreurs">
+
+      <div class="bilan-carte-titre">
+        <h2>Les erreurs d’implantation</h2>
+      </div>
+
+      <div class="bilan-liste">
+
+        @for (decision of erreurs; track decision.id) {
+
+          <button
+            type="button"
+            class="bilan-element"
+            [class.selectionne]="estSelectionnee(decision.id)"
+            (click)="selectionnerDecision(decision.id)">
+
+            <span class="bilan-icone erreur">
+              !
+            </span>
+
+            <span class="bilan-texte">
+
+              <strong>{{ decision.titre }}</strong>
+
+              <small>{{ decision.description }}</small>
+
+              @if (estSelectionnee(decision.id)) {
+                <span class="bilan-zone">
+                  Emplacement concerné :
+                  {{ decision.zone }}
+                </span>
+              }
+
+            </span>
+
+          </button>
+
+        }
+
+      </div>
+
+    </article>
+
+  </div>
+
+  <!-- AMÉLIORATIONS POSSIBLES -->
+
+  <section class="ameliorations">
+
+    <h2>Améliorations possibles</h2>
+
+    <div class="ameliorations-grid">
+
+      @for (amelioration of ameliorations; track amelioration.numero) {
+
+        <button
+          type="button"
+          class="amelioration-item"
+          [class.selectionne]="estSelectionnee('amelioration-' + amelioration.numero)"
+          (click)="selectionnerDecision('amelioration-' + amelioration.numero)">
+
+          <span class="amelioration-numero">
+            {{ amelioration.numero }}
+          </span>
+
+          <span class="amelioration-texte">
+
+            {{ amelioration.texte }}
+
+            @if (estSelectionnee('amelioration-' + amelioration.numero)) {
+              <small>
+                Zone concernée : {{ amelioration.zone }}
+              </small>
+            }
+
+          </span>
+
+        </button>
+
+      }
+
+    </div>
+
+  </section>
+
+  <!-- NAVIGATION -->
+
+  <div class="bilan-actions">
+
+    <button
+      type="button"
+      class="bilan-rejouer"
+      (click)="recommencer()">
+      Rejouer
+    </button>
+
+    <button
+      type="button"
+      class="bilan-terminer"
+      (click)="terminerDefi()">
+      Terminer le défi
+    </button>
+
+  </div>
+
+  <footer class="bilan-footer">
+    Étape 5 : devenir urbaniste de l'Égypte antique
+    <span>|</span>
+    Projet de théorie et histoire de l'urbanisme
+  </footer>
+
+</section>

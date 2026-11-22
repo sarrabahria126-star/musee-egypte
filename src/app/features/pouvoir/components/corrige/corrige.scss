@@ -1,0 +1,175 @@
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.corrige-page {
+  min-height: 680px;
+  background: #fcf8ef;
+  color: #24170f;
+  font-family: Arial, sans-serif;
+}
+
+.corrige-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 28px 24px 20px;
+  min-height: 680px;
+  display: flex;
+  flex-direction: column;
+}
+
+.corrige-header {
+  margin-bottom: 18px;
+
+  .back-link {
+    border: none;
+    background: transparent;
+    color: #99500c;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0 0 16px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  h1 {
+    font-family: Georgia, serif;
+    font-size: clamp(26px, 3vw, 36px);
+    font-weight: 700;
+    color: #24170f;
+    margin: 0;
+    line-height: 1.2;
+  }
+}
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.comparaison-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 13px;
+  line-height: 1.45;
+
+  th,
+  td {
+    border: 1px solid #d9c7aa;
+    padding: 12px 11px;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  thead th {
+    font-weight: 700;
+    color: #21160e;
+  }
+
+  .col-critere {
+    width: 16%;
+    background: #f5ead7;
+  }
+
+  .col-vivants {
+    width: 28%;
+    background: #e5b58f;
+  }
+
+  .col-dieux {
+    width: 28%;
+    background: #ebcb55;
+  }
+
+  .col-morts {
+    width: 28%;
+    background: #abb5d2;
+  }
+
+  .cell-critere {
+    background: #f7ecda;
+    font-weight: 700;
+  }
+
+  .cell-vivants {
+    background: #fcf4ed;
+  }
+
+  .cell-dieux {
+    background: #fbf5dd;
+  }
+
+  .cell-morts {
+    background: #f0f1f7;
+  }
+
+  tbody tr {
+    transition: filter 0.2s ease;
+
+    &:hover {
+      filter: brightness(0.97);
+    }
+  }
+}
+
+.corrige-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-top: auto;
+  padding-top: 40px;
+}
+
+.quiz-button {
+  min-width: 230px;
+  min-height: 46px;
+  padding: 12px 26px;
+  border: none;
+  border-radius: 14px;
+  background: #f4a029;
+  color: #17110b;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: #e98e15;
+  }
+
+  &:focus-visible {
+    outline: 3px solid #8a4c13;
+    outline-offset: 3px;
+  }
+}
+
+@media (max-width: 768px) {
+  .corrige-container {
+    padding: 22px 14px;
+    min-height: 550px;
+  }
+
+  .comparaison-table {
+    min-width: 740px;
+    font-size: 12px;
+
+    th,
+    td {
+      padding: 10px 8px;
+    }
+  }
+
+  .corrige-actions {
+    padding-top: 28px;
+  }
+
+  .quiz-button {
+    width: 100%;
+  }
+}
